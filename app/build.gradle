@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.example.festival'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.festival"
@@ -29,6 +29,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    viewBinding {
+        enabled true
     }
 }
 

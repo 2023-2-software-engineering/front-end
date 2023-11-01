@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_1"
+        android:title="이상 부스 신고"/>
+    <item
+        android:id="@+id/menu_2"
+        android:title="아이디어 제안"/>
+    <item
+        android:id="@+id/menu_3"
+        android:title="알림 받는 축제"/>
+
+</menu>
