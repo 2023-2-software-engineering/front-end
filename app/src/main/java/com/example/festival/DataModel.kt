@@ -10,7 +10,13 @@ data class Festival(
     val place: String
 )
 
+// 게시판 작성
 data class Board(
+    val title: String,
+    val content: String
+)
+
+data class BoardData(
     val partnerId: Int,
     val title: String,
     val content: String,

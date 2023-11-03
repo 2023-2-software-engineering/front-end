@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Festival"
         tools:targetApi="31">
         <activity
+            android:name=".AddBoardActivity"
+            android:exported="false" />
+        <activity
             android:name=".BoardDetailActivity"
             android:exported="false" />
         <activity
