@@ -25,3 +25,28 @@ data class BoardData(
     val nickname: String,
     val address: String
 )
+
+// 댓글 작성
+data class Comment(
+    val content: String
+)
+
+// 댓글 조회
+data class CommentListResponse(
+    val commentId: Int,
+    val nickname: String,
+    val address: String,
+    val partnerId: Int,
+    val content: String,
+    val createdAt: String,
+    val replyDtos: List<ReplyList>
+)
+
+data class ReplyList(
+    val replyId: Int,
+    val content: String,
+    val nickname: String,
+    val address: String,
+    val commentId: Int,
+    val createdAt: String
+)

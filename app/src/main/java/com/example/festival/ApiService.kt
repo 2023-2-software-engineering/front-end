@@ -22,3 +22,21 @@ interface BoardDetailService {  // 게시판 상세
     @GET("partner/{partnerId}")
     fun getBoard(@Path("partnerId") boardId: Int): Call<Board>
 }
+
+interface DeleteBoardService {  // 게시판 삭제
+    @DELETE("partner/{partnerId}")
+    fun deleteBoardData(@Path("partnerId") boardId: Int): Call<Void>
+}
+
+interface CommentService {  // 게시판 댓글 작성
+    @POST("comment/{partnerId}")
+    fun sendComment(
+        @Path("partnerId") partnerId: Int, @Header("Authorization") authToken: String,
+        @Body comment: Comment
+    ): Call<Void>
+}
+
+interface CommentListService { // 일기 댓글 조회
+    @GET("comment/{partnerId}")
+    fun getCommentListData(@Path("partnerId") partnerId: Int): Call<List<CommentListResponse>>
+}
