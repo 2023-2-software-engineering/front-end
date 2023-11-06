@@ -20,7 +20,7 @@ data class BoardData(
     val partnerId: Int,
     val title: String,
     val content: String,
-    val createAt: Date,
+    val createdAt: String,
     val count: Int,
     val nickname: String,
     val address: String

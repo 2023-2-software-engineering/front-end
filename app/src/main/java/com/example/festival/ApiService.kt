@@ -15,12 +15,12 @@ interface BoardService {  // 게시판 작성
 
 interface BoardListService {  // 게시판 리스트
     @GET("partner")
-    fun getBoardList(): Call<List<Board>>
+    fun getBoardList(): Call<List<BoardData>>
 }
 
 interface BoardDetailService {  // 게시판 상세
     @GET("partner/{partnerId}")
-    fun getBoard(@Path("partnerId") boardId: Int): Call<Board>
+    fun getBoard(@Path("partnerId") boardId: Int): Call<BoardData>
 }
 
 interface DeleteBoardService {  // 게시판 삭제

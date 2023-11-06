@@ -6,6 +6,54 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object BoardManager {
+    fun getBoardListData(onSuccess: (List<BoardData>) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().boardListService
+        val call = apiService.getBoardList()
+
+        call.enqueue(object : Callback<List<BoardData>> {
+            override fun onResponse(call: Call<List<BoardData>>, response: Response<List<BoardData>>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<BoardData>>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun getBoardData(boardId: Int, onSuccess: (BoardData) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().boardDetailService
+        val call = apiService.getBoard(boardId)
+
+        call.enqueue(object : Callback<BoardData> {
+            override fun onResponse(call: Call<BoardData>, response: Response<BoardData>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<BoardData>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
     fun sendBoardToServer(board: Board, authToken: String) {  // 게시판 새로 추가
         val apiService = MyApplication().boardService
         val call = apiService.sendBoard(board, authToken)
@@ -89,7 +137,7 @@ object CommentManager {  // 댓글
             }
 
             override fun onFailure(call: Call<List<CommentListResponse>>, t: Throwable) {
-                onError(t)
+                Log.e("서버 테스트", "오류2: ${t.message}")
             }
         })
     }
