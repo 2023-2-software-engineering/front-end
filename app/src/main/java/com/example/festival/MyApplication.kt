@@ -8,7 +8,7 @@ import java.util.*
 
 class MyApplication {
     val retrofit = Retrofit.Builder()
-        .baseUrl("http:/192.168.200.105:8080/") // 로컬 URL (본인 걸로 변경)
+        .baseUrl("http://10.0.2.2:8080/api/") // 로컬 URL (본인 걸로 변경)
         .addConverterFactory(GsonConverterFactory.create(getGson()))
         .build()
 
@@ -21,8 +21,13 @@ class MyApplication {
     }
 
     val festivalService = retrofit.create(FestivalService::class.java)
+
     val boardService = retrofit.create(BoardService::class.java)
     val boardListService = retrofit.create(BoardListService::class.java)
     val boardDetailService = retrofit.create(BoardDetailService::class.java)
+    val deleteBoardService = retrofit.create(DeleteBoardService::class.java)
+
+    val commentService = retrofit.create(CommentService::class.java)
+    val commentListService = retrofit.create(CommentListService::class.java)
 
 }
