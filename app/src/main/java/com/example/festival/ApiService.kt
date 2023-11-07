@@ -27,6 +27,12 @@ interface BoardDetailService {  // 게시판 상세
     fun getBoard(@Path("partnerId") boardId: Int): Call<BoardData>
 }
 
+interface ModBoardService {  // 게시판 수정
+    @PATCH("partner/{partnerId}")
+    fun sendModBoard(@Path("partnerId") boardId: Int, @Body board: Board,
+                     @Header("Authorization") authToken: String): Call<Void>
+}
+
 interface DeleteBoardService {  // 게시판 삭제
     @DELETE("partner/{partnerId}")
     fun deleteBoardData(@Path("partnerId") boardId: Int): Call<Void>

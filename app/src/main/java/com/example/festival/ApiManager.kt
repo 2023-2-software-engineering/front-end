@@ -102,6 +102,25 @@ object BoardManager {
         })
     }
 
+    fun sendModBoardToServer(boardId: Int, board: Board, authToken: String) {  // 게시판 수정
+        val apiService = MyApplication().modBoardService
+        val call = apiService.sendModBoard(boardId, board, authToken)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("서버 테스트", "추가 성공")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
     fun deleteBoardFromServer(boardId: Int) {  // 게시판 삭제
         val apiService = MyApplication().deleteBoardService
         val call = apiService.deleteBoardData(boardId)
