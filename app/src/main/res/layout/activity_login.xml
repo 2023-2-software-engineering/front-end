@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="30dp"
     android:visibility="visible"
-    tools:context=".loginActivity">
+    tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/login_logo"
@@ -66,12 +66,11 @@
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:background="@drawable/bg_buttom"
-        android:textColor="@color/black"
         android:layout_marginTop="10dp"
+        android:background="@drawable/bg_buttom"
         android:text="로그인"
+        android:textColor="@color/black"
         android:textSize="25dp" />
-
 
 
 </LinearLayout>

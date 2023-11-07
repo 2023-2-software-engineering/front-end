@@ -2,6 +2,11 @@ package com.example.festival
 
 import java.sql.Date
 
+data class Login(
+    val identify: String,
+    val password: String
+)
+
 data class Festival(
     val festivalId: Int,
     val title: String,

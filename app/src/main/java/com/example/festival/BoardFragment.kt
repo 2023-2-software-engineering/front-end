@@ -45,9 +45,7 @@ class BoardFragment : Fragment() {
     private fun loadBoardList() {
         BoardManager.getBoardListData(
             onSuccess = { boardListResponse ->
-                Log.d("my log", "${boardListResponse}")
                 val board = boardListResponse.map { it }
-                Log.d("my log", "${board}")
                 boardAdapter.updateData(board)
             },
             onError = { throwable ->
@@ -56,4 +54,9 @@ class BoardFragment : Fragment() {
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        loadBoardList()
+    }
 }
