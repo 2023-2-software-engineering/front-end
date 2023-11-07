@@ -55,3 +55,19 @@ data class ReplyList(
     val commentId: Int,
     val createdAt: String
 )
+
+// 신고 작성
+data class Report(
+    val title: String,
+    val content: String
+)
+
+data class ReportData(
+    val reportId: Int,
+    val nickname: String,
+    val address: String,
+    val title: String,
+    val content: String,
+    val createdAt: String,
+    val done: Boolean
+)

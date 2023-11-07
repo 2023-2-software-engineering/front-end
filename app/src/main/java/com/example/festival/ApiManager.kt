@@ -102,6 +102,25 @@ object BoardManager {
         })
     }
 
+    fun sendModBoardToServer(boardId: Int, board: Board, authToken: String) {  // 게시판 수정
+        val apiService = MyApplication().modBoardService
+        val call = apiService.sendModBoard(boardId, board, authToken)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("서버 테스트", "추가 성공")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
     fun deleteBoardFromServer(boardId: Int) {  // 게시판 삭제
         val apiService = MyApplication().deleteBoardService
         val call = apiService.deleteBoardData(boardId)
@@ -166,6 +185,75 @@ object CommentManager {  // 댓글
             }
 
             override fun onFailure(call: Call<List<CommentListResponse>>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+}
+
+object ReportManager {
+    fun getReportListData(onSuccess: (List<ReportData>) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().reportListService
+        val call = apiService.getReportList()
+
+        call.enqueue(object : Callback<List<ReportData>> {
+            override fun onResponse(call: Call<List<ReportData>>, response: Response<List<ReportData>>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<ReportData>>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun getReportData(reportId: Int, onSuccess: (ReportData) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().reportDetailService
+        val call = apiService.getReport(reportId)
+
+        call.enqueue(object : Callback<ReportData> {
+            override fun onResponse(call: Call<ReportData>, response: Response<ReportData>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<ReportData>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun sendReportToServer(report: Report, authToken: String) {  // 신고 새로 추가
+        val apiService = MyApplication().reportService
+        val call = apiService.sendReport(report, authToken)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("서버 테스트", "추가 성공")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.e("서버 테스트", "오류2: ${t.message}")
             }
         })

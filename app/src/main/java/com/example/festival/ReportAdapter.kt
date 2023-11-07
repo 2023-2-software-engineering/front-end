@@ -6,55 +6,61 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BoardAdapter(private var boards: List<BoardData>) : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
+class ReportAdapter(private var reports: List<ReportData>) : RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.board_recyclerview, parent, false)
-        return BoardViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.report_recyclerview, parent, false)
+        return ReportViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: BoardViewHolder, position: Int) {
-        val board = boards[position]
-        holder.bind(board)
+    override fun onBindViewHolder(holder: ReportViewHolder, position: Int) {
+        val report = reports[position]
+        holder.bind(report)
     }
 
     override fun getItemCount(): Int {
-        return boards.size
+        return reports.size
     }
 
     // 데이터 업데이트 메서드 추가
-    fun updateData(newBoards: List<BoardData>) {
-        boards = newBoards
+    fun updateData(newReports: List<ReportData>) {
+        reports = newReports
         notifyDataSetChanged()
     }
 
-    inner class BoardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val titleTextView: TextView = itemView.findViewById(R.id.board_title)
-        private val writerTextView: TextView = itemView.findViewById(R.id.board_writer)
-        private val createdTextView: TextView = itemView.findViewById(R.id.board_date)
-        private val commentCount: TextView = itemView.findViewById(R.id.comment_num)
+    inner class ReportViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val titleTextView: TextView = itemView.findViewById(R.id.report_title)
+        private val writerTextView: TextView = itemView.findViewById(R.id.report_writer)
+        private val doneTextView: TextView = itemView.findViewById(R.id.report_done)
+        private val yetTextView: TextView = itemView.findViewById(R.id.report_yet)
+        private val createdTextView: TextView = itemView.findViewById(R.id.report_date)
 
         init {
             itemView.setOnClickListener {
-                val clickedBoard = boards[adapterPosition]
-                val boardId = clickedBoard.partnerId  // 클릭된 게시판의 Id를 가져옴
-                val intent = Intent(itemView.context, BoardDetailActivity::class.java)
-                intent.putExtra("boardId", boardId)
+                val clickedReport = reports[adapterPosition]
+                val reportId = clickedReport.reportId  // 클릭된 신고 Id를 가져옴
+                val intent = Intent(itemView.context, ReportDetailActivity::class.java)
+                intent.putExtra("reportId", reportId)
                 itemView.context.startActivity(intent)
             }
         }
 
-        fun bind(boardList: BoardData) {
-            titleTextView.text = boardList.title
-            writerTextView.text = boardList.nickname
-            commentCount.text = "${boardList.count}"
+        fun bind(reportList: ReportData) {
+            titleTextView.text = reportList.title
+            writerTextView.text = reportList.nickname
 
-            val parts = boardList.createdAt.split("T")
+            if (reportList.done == true) {  // 조치 완료 라면
+                doneTextView.visibility = View.GONE
+                yetTextView.visibility = View.VISIBLE
+            }
+
+            val parts = reportList.createdAt.split("T")
 
             if (parts.size == 2) {
                 val datePart = parts[0]

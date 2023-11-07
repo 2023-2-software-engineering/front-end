@@ -27,6 +27,12 @@ interface BoardDetailService {  // 게시판 상세
     fun getBoard(@Path("partnerId") boardId: Int): Call<BoardData>
 }
 
+interface ModBoardService {  // 게시판 수정
+    @PATCH("partner/{partnerId}")
+    fun sendModBoard(@Path("partnerId") boardId: Int, @Body board: Board,
+                     @Header("Authorization") authToken: String): Call<Void>
+}
+
 interface DeleteBoardService {  // 게시판 삭제
     @DELETE("partner/{partnerId}")
     fun deleteBoardData(@Path("partnerId") boardId: Int): Call<Void>
@@ -40,7 +46,22 @@ interface CommentService {  // 게시판 댓글 작성
     ): Call<Void>
 }
 
-interface CommentListService { // 일기 댓글 조회
+interface CommentListService { // 게시판 댓글 조회
     @GET("comment/{partnerId}")
     fun getCommentListData(@Path("partnerId") partnerId: Int): Call<List<CommentListResponse>>
+}
+
+interface ReportService {
+    @POST("report")
+    fun sendReport(@Body report: Report, @Header("Authorization") authToken: String): Call<Void>
+}
+
+interface ReportListService {  // 게시판 리스트
+    @GET("report")
+    fun getReportList(): Call<List<ReportData>>
+}
+
+interface ReportDetailService {  // 게시판 상세
+    @GET("report/{reportId}")
+    fun getReport(@Path("reportId") reportId: Int): Call<ReportData>
 }

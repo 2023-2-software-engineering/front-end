@@ -1,7 +1,9 @@
 package com.example.festival
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             )
             true
         }
+
+        binding.navView.setNavigationItemSelectedListener(this)
 
         // 초기화면으로 HomeFragment를 보여줄 수 있도록 설정
         changeFragment(HomeFragment())
@@ -62,9 +66,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
+    // 드로어 레이아웃(네비게이션 뷰)의 아이템들 선택될 때마다 속성(아이디) 전달 되어 실행
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.menu_1 -> {}
+            R.id.menu_1 -> {
+                Log.d("my log","클릭 작동중")
+                val intent = Intent(this, ReportActivity::class.java)
+                startActivity(intent)
+            }
             R.id.menu_2 -> {}
             R.id.menu_3 -> {}
         }

@@ -3,6 +3,7 @@ package com.example.festival
 import com.google.gson.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,9 +28,13 @@ class MyApplication {
     val boardService = retrofit.create(BoardService::class.java)
     val boardListService = retrofit.create(BoardListService::class.java)
     val boardDetailService = retrofit.create(BoardDetailService::class.java)
+    val modBoardService = retrofit.create(ModBoardService::class.java)
     val deleteBoardService = retrofit.create(DeleteBoardService::class.java)
 
     val commentService = retrofit.create(CommentService::class.java)
     val commentListService = retrofit.create(CommentListService::class.java)
 
+    val reportService = retrofit.create(ReportService::class.java)
+    val reportListService = retrofit.create(ReportListService::class.java)
+    val reportDetailService = retrofit.create(ReportDetailService::class.java)
 }

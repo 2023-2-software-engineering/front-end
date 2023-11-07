@@ -2,18 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Festival"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".AddReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReportDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReportActivity"
+            android:exported="false" />
         <activity
             android:name=".SignupActivity"
             android:exported="false" />
@@ -28,7 +37,7 @@
         </activity>
         <activity
             android:name=".AddBoardActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".BoardDetailActivity"
             android:exported="false" />
@@ -38,8 +47,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="파티 투게더">
-        </activity>
+            android:label="파티 투게더" />
     </application>
 
 </manifest>
