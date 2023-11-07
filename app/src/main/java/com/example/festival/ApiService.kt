@@ -46,7 +46,22 @@ interface CommentService {  // 게시판 댓글 작성
     ): Call<Void>
 }
 
-interface CommentListService { // 일기 댓글 조회
+interface CommentListService { // 게시판 댓글 조회
     @GET("comment/{partnerId}")
     fun getCommentListData(@Path("partnerId") partnerId: Int): Call<List<CommentListResponse>>
+}
+
+interface ReportService {
+    @POST("report")
+    fun sendReport(@Body report: Report, @Header("Authorization") authToken: String): Call<Void>
+}
+
+interface ReportListService {  // 게시판 리스트
+    @GET("report")
+    fun getReportList(): Call<List<ReportData>>
+}
+
+interface ReportDetailService {  // 게시판 상세
+    @GET("report/{reportId}")
+    fun getReport(@Path("reportId") reportId: Int): Call<ReportData>
 }

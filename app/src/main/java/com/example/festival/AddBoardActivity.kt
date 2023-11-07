@@ -33,12 +33,12 @@ class AddBoardActivity : AppCompatActivity() {
         new = intent.getIntExtra("new_board", 1)
 
         // 툴바 취소 버튼 클릭 시
-        binding.diaryCancelBtn.setOnClickListener {
+        binding.boardCancelBtn.setOnClickListener {
             finish()
         }
 
         // 툴바 완료 버튼 클릭 시
-        binding.diarySaveBtn.setOnClickListener {
+        binding.boardSaveBtn.setOnClickListener {
             if (new == 1) {
                 saveBoardToServer() // 서버로 데이터 전송
                 finish()

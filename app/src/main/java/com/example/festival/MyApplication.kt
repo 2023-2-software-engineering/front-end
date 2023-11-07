@@ -34,4 +34,7 @@ class MyApplication {
     val commentService = retrofit.create(CommentService::class.java)
     val commentListService = retrofit.create(CommentListService::class.java)
 
+    val reportService = retrofit.create(ReportService::class.java)
+    val reportListService = retrofit.create(ReportListService::class.java)
+    val reportDetailService = retrofit.create(ReportDetailService::class.java)
 }

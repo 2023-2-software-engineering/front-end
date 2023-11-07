@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBoardActivity">
+    tools:context=".AddReportActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" >
 
         <ImageView
-            android:id="@+id/board_cancel_btn"
+            android:id="@+id/report_cancel_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/x_icon" />
@@ -24,12 +24,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="작성하기"
+            android:text="신고하기"
             android:textColor="#1E1E1E"
             android:textSize="16dp" />
 
         <android.widget.Button
-            android:id="@+id/board_save_btn"
+            android:id="@+id/report_save_btn"
             android:layout_width="60dp"
             android:layout_height="30dp"
             android:layout_marginRight="18dp"
@@ -57,12 +57,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="게시판 내용"
+            android:text="신고 내용"
             android:textColor="#1E1E1E"
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/board_add_title"
+            android:id="@+id/report_add_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
@@ -73,7 +73,7 @@
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/board_add_content"
+            android:id="@+id/report_add_content"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:layout_marginBottom="10dp"

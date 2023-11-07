@@ -61,7 +61,7 @@ class BoardDetailActivity : AppCompatActivity() {
                     binding.boardAddress.text = boardDetail.address
                     binding.commentNum.text = "${boardDetail.count}"
 
-                    val parts = boardDetail.content.split("T")
+                    val parts = boardDetail.createdAt.split("T")
                     if (parts.size == 2) {
                         val datePart = parts[0]
                         val timeWithMillisPart = parts[1]
@@ -72,12 +72,12 @@ class BoardDetailActivity : AppCompatActivity() {
                         // 날짜와 시간을 조합하여 Timestamp로 변환
                         val timestampString = "$datePart $timePart"
                         val dateFormat =
-                            SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                            SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                         val parsedTimestamp = Timestamp(dateFormat.parse(timestampString).time)
 
                         // SimpleDateFormat을 사용하여 원하는 형식으로 포맷
                         val outputDateFormat =
-                            SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                            SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                         outputDateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul") // 원하는 시간대 설정
                         val formattedDate = outputDateFormat.format(parsedTimestamp)
 
@@ -125,7 +125,7 @@ class BoardDetailActivity : AppCompatActivity() {
                         binding.boardAddress.text = boardDetail.address
                         binding.commentNum.text = "${boardDetail.count}"
 
-                        val parts = boardDetail.content.split("T")
+                        val parts = boardDetail.createdAt.split("T")
                         if (parts.size == 2) {
                             val datePart = parts[0]
                             val timeWithMillisPart = parts[1]
@@ -136,12 +136,12 @@ class BoardDetailActivity : AppCompatActivity() {
                             // 날짜와 시간을 조합하여 Timestamp로 변환
                             val timestampString = "$datePart $timePart"
                             val dateFormat =
-                                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                                SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                             val parsedTimestamp = Timestamp(dateFormat.parse(timestampString).time)
 
                             // SimpleDateFormat을 사용하여 원하는 형식으로 포맷
                             val outputDateFormat =
-                                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                                SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                             outputDateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul") // 원하는 시간대 설정
                             val formattedDate = outputDateFormat.format(parsedTimestamp)
 
