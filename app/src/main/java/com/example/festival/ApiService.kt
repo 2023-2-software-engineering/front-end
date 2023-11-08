@@ -7,9 +7,14 @@ interface LogInService {  // 로그인
     @POST
     fun sendLogInRequest(@Url url: String, @Body login: Login): Call<Void>
 }
-interface FestivalService {  // 페스티벌 리스트
-    @GET("festival")
+interface FestivalListService {  // 페스티벌 리스트
+    @GET("festival/list")
     fun getFestivalList(): Call<List<Festival>>
+}
+
+interface FestivalDetailService {  // 페스티벌 상세
+    @GET("festival/detail")
+    fun getFestival(@Query("festivalId") festivalId: Int): Call<Festival>
 }
 
 interface BoardService {  // 게시판 작성

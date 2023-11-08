@@ -11,8 +11,9 @@ data class Festival(
     val festivalId: Int,
     val title: String,
     val content: String,
-    val date: Date,
-    val place: String
+    val image: String,
+    val location: String,
+    val date: Date
 )
 
 // 게시판 작성

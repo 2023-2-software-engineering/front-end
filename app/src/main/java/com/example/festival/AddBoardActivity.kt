@@ -7,15 +7,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.festival.BoardManager.sendBoardToServer
 import com.example.festival.BoardManager.sendModBoardToServer
 import com.example.festival.databinding.ActivityAddBoardBinding
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddBoardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBoardBinding
     private var authToken: String ?= null // 로그인 토큰
     private var new: Int ?= 1 // 새로 작성이면 1, 수정이면 0
     private var boardId: Int ?= -1 // 수정일 때의 해당 게시판 Id
+
+    companion object {
+        lateinit var selectFestivalActivityResult: ActivityResultLauncher<Intent>
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +41,22 @@ class AddBoardActivity : AppCompatActivity() {
         // 새로 작성 or 수정 (1이면 새로 작성, 아니면 수정)
         new = intent.getIntExtra("new_board", 1)
 
+        selectFestivalActivityResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                Log.d("my log", "선택 완료")
+                // 선택 후 넘어왔을 때 보여줄 내용 추가
+
+                val data = result.data
+                val festivalId = data?.getIntExtra("festivalId", -1)
+                val festivalTitle = data?.getStringExtra("festivalTitle")
+
+                if (festivalId != -1) {
+                    binding.festivalTitle.text = festivalTitle
+                }
+            }
+        }
+
         // 툴바 취소 버튼 클릭 시
         binding.boardCancelBtn.setOnClickListener {
             finish()
@@ -45,6 +70,13 @@ class AddBoardActivity : AppCompatActivity() {
             } else {
                 modBoardToServer()  // 서버로 수정된 데이터 전송
             }
+        }
+
+        // 축제 추가 버튼 클릭 시
+        binding.addFestival.setOnClickListener {
+            val intent = Intent(this, SelectFestivalActivity::class.java)
+            selectFestivalActivityResult.launch(intent)
+            Log.d("my log", "추가하러 가기")
         }
 
         if (new != 1) { // 기존의 게시판 수정이라면, 기존의 내용 그대로 출력

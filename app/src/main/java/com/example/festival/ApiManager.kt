@@ -34,6 +34,56 @@ object LogInManager {
     }
 }
 
+object FestivalManager {
+    fun getFestivalListData(onSuccess: (List<Festival>) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().festivalService
+        val call = apiService.getFestivalList()
+
+        call.enqueue(object : Callback<List<Festival>> {
+            override fun onResponse(call: Call<List<Festival>>, response: Response<List<Festival>>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<Festival>>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun getFestivalData(festivalId: Int, onSuccess: (Festival) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().festivalDetailService
+        val call = apiService.getFestival(festivalId)
+
+        call.enqueue(object : Callback<Festival> {
+            override fun onResponse(call: Call<Festival>, response: Response<Festival>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<Festival>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+}
+
 object BoardManager {
     fun getBoardListData(onSuccess: (List<BoardData>) -> Unit, onError: (Throwable) -> Unit) {
         val apiService = MyApplication().boardListService

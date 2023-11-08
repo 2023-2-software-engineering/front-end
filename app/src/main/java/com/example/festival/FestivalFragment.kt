@@ -1,6 +1,7 @@
 package com.example.festival
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,7 +57,15 @@ class FestivalFragment : Fragment() {
 
     // 서버에서 페스티벌 리스트 불러오기
     private fun loadFestivalList() {
-
+        FestivalManager.getFestivalListData(
+            onSuccess = { festivalListResponse ->
+                val festival = festivalListResponse.map { it }
+                festivalAdapter.updateData(festival)
+            },
+            onError = { throwable ->
+                Log.e("서버 테스트", "오류3: $throwable")
+            }
+        )
     }
 
 }
