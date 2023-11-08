@@ -103,13 +103,13 @@
             android:layout_margin="10dp"
             android:textColor="#000000"/>
 
-        <Button
+        <android.widget.Button
             android:id="@+id/signup_btn"
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:backgroundTint="@color/mint"
+            android:background="@drawable/bg_buttom"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:text="회원가입" />
