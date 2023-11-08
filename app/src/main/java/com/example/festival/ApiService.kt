@@ -7,6 +7,14 @@ interface LogInService {  // 로그인
     @POST
     fun sendLogInRequest(@Url url: String, @Body login: Login): Call<Void>
 }
+
+interface AuthJoinService { // 회원가입
+    // "api 경로"
+    // 함수명(서버에 보내는 데이터:Body 변수명: 데이터타입): Call<서버에 받아오는 데이터 형태>
+    @POST("auth/join")
+    fun sendAuthRequest(@Body join: Join): Call<Void>
+}
+
 interface FestivalService {  // 페스티벌 리스트
     @GET("festival")
     fun getFestivalList(): Call<List<Festival>>

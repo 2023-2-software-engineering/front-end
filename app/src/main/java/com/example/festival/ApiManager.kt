@@ -5,7 +5,28 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+object JoinManager {
+    fun sendJoinToServer(join: Join) {
+        val apiService = MyApplication().authJoinService
+        val call = apiService.sendAuthRequest(join)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+}
+
 object LogInManager {
+
     val loginURL = "http://10.0.2.2:8080/login"
 
     fun sendLogInToServer(login: Login, onSuccess: (String) -> Unit) {
