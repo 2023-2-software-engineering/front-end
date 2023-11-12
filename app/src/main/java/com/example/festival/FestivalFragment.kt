@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.festival.databinding.FragmentFestivalBinding
@@ -15,6 +18,7 @@ class FestivalFragment : Fragment() {
     lateinit var binding: FragmentFestivalBinding
     private lateinit var festivalAdapter: FestivalAdapter
     private lateinit var recyclerView: RecyclerView
+    private var searchWord: String ?= null // 검색어
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -53,6 +57,20 @@ class FestivalFragment : Fragment() {
         recyclerView.adapter = festivalAdapter // 리사이클러뷰에 어댑터 설정
 
         loadFestivalList()
+
+        // 검색창에서 검색 시
+//        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                if (!query.isNullOrBlank()) {
+//
+//                } else {
+//                    // 검색어가 비어 있을 때 Toast 메시지를 표시
+//                    Toast.makeText(requireContext(), "검색어를 입력하세요", Toast.LENGTH_SHORT).show()
+//                }
+//                return true
+//            }
+//        }
+//        )
     }
 
     // 서버에서 페스티벌 리스트 불러오기

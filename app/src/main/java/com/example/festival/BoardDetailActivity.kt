@@ -198,7 +198,7 @@ class BoardDetailActivity : AppCompatActivity() {
             }
             R.id.remove_menu -> { //삭제하기 버튼 클릭 시
                 BoardManager.deleteBoardFromServer(boardId)
-                finish() // 현재 일기 삭제 후, 액티비티 종료
+                finish() // 현재 글 삭제 후, 액티비티 종료
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

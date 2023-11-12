@@ -28,7 +28,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:orientation="horizontal">
+
+        <android.widget.Button
+            android:id="@+id/festival_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_gravity="end"
+            android:background="@drawable/stroke_button"
+            android:textColor="@android:color/black"
+            android:textSize="16dp"
+            android:text="축제" />
+
+        <android.widget.Button
+            android:id="@+id/event_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_gravity="end"
+            android:background="@drawable/stroke_button"
+            android:textColor="@android:color/black"
+            android:textSize="16dp"
+            android:text="이벤트" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <!-- 검색바 (SearchView) -->
@@ -92,7 +123,6 @@
         android:id="@+id/festivalRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        android:layout_marginTop="10dp" />
+        android:padding="8dp" />
 
 </LinearLayout>
