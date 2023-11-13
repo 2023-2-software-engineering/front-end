@@ -187,7 +187,7 @@
 
     <!--  Hot 목록(리사이클러 뷰)  -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/festivalRecyclerView"
+        android:id="@+id/hotRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp" />

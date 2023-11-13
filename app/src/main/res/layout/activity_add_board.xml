@@ -122,6 +122,7 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
+            android:id="@+id/add_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -137,12 +138,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="사진 첨부"
+                android:text="사진 첨부 >"
                 android:layout_gravity="center_vertical"
                 android:textColor="#1E1E1E"
                 android:textSize="14dp" />
 
         </LinearLayout>
+
+        <!--    이미지 리사이클러뷰  -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.0" />
 
     </LinearLayout>
 

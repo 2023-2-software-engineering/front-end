@@ -17,6 +17,7 @@ import com.google.android.material.tabs.TabLayout
 class FestivalFragment : Fragment() {
     lateinit var binding: FragmentFestivalBinding
     private lateinit var festivalAdapter: FestivalAdapter
+    private lateinit var eventAdapter: EventAdapter
     private lateinit var recyclerView: RecyclerView
     private var searchWord: String ?= null // 검색어
 
@@ -54,9 +55,20 @@ class FestivalFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
         festivalAdapter = FestivalAdapter(emptyList())  // 초기에 빈 목록으로 어댑터 설정
+        eventAdapter = EventAdapter(emptyList())
         recyclerView.adapter = festivalAdapter // 리사이클러뷰에 어댑터 설정
 
         loadFestivalList()
+
+        binding.eventBtn.setOnClickListener { //이벤트 버튼 클릭 시 이벤트만 보여주기
+            recyclerView.adapter = eventAdapter
+            loadEventList()
+        }
+
+        binding.festivalBtn.setOnClickListener { // 축제 버튼 클릭 시 축제만 보여주기
+            recyclerView.adapter = festivalAdapter
+            loadFestivalList()
+        }
 
         // 검색창에서 검색 시
 //        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -86,4 +98,15 @@ class FestivalFragment : Fragment() {
         )
     }
 
+    private fun loadEventList() {
+        EventManager.getEventListData(
+            onSuccess = { eventListResponse ->
+                val event = eventListResponse.map { it }
+                eventAdapter.updateData(event)
+            },
+            onError = { throwable ->
+                Log.e("서버 테스트", "오류3: $throwable")
+            }
+        )
+    }
 }
