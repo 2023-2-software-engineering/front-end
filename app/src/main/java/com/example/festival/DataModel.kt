@@ -7,6 +7,15 @@ data class Login(
     val password: String
 )
 
+data class Join(
+    val username: String,
+    val nickname: String,
+    val identify: String,
+    val address: String,
+    val password: String,
+    val phoneNumber: String
+)
+
 data class Festival(
     val festivalId: Int,
     val title: String,

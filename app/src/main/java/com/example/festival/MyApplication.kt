@@ -22,6 +22,7 @@ class MyApplication {
     }
 
     val logInService = retrofit.create(LogInService::class.java)
+    val authJoinService = retrofit.create(AuthJoinService::class.java)
 
     val festivalService = retrofit.create(FestivalListService::class.java)
     val festivalDetailService = retrofit.create(FestivalDetailService::class.java)

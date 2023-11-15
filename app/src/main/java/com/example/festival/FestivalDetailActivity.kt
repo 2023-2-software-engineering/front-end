@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import com.bumptech.glide.Glide
 import com.example.festival.databinding.ActivityFestivalDetailBinding
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
@@ -15,6 +16,7 @@ class FestivalDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFestivalDetailBinding
     private var festivalId = -1 // 현재 축제 ID를 담는 변수
     private var authToken: String ?= null // 로그인 토큰
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,10 @@ class FestivalDetailActivity : AppCompatActivity() {
                     binding.festivalText.text = festivalDetail.content
                     //binding.festivalDate.text = festivalDetail.date.toString()
                     binding.festivalPlace.text = festivalDetail.location
+
+                    Glide.with(this)
+                        .load("https://narsha-bucket-s3.s3.ap-northeast-2.amazonaws.com/post/2023/09/03/b4692b00-9c83-4268-96eb-fd82525e27b0.png")
+                        .into(binding.festivalImg)
                 },
                 onError = { throwable ->
                     Log.e("서버 테스트3", "오류: $throwable")
