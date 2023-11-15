@@ -55,6 +55,106 @@ object LogInManager {
     }
 }
 
+object FestivalManager {
+    fun getFestivalListData(onSuccess: (List<Festival>) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().festivalService
+        val call = apiService.getFestivalList()
+
+        call.enqueue(object : Callback<List<Festival>> {
+            override fun onResponse(call: Call<List<Festival>>, response: Response<List<Festival>>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<Festival>>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun getFestivalData(festivalId: Int, onSuccess: (Festival) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().festivalDetailService
+        val call = apiService.getFestival(festivalId)
+
+        call.enqueue(object : Callback<Festival> {
+            override fun onResponse(call: Call<Festival>, response: Response<Festival>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<Festival>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+}
+
+object EventManager {
+    fun getEventListData(onSuccess: (List<Event>) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().eventService
+        val call = apiService.getEventList()
+
+        call.enqueue(object : Callback<List<Event>> {
+            override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<Event>>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun getEventData(eventId: Int, onSuccess: (Event) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().eventDetailService
+        val call = apiService.getEvent(eventId)
+
+        call.enqueue(object : Callback<Event> {
+            override fun onResponse(call: Call<Event>, response: Response<Event>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<Event>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+}
+
 object BoardManager {
     fun getBoardListData(onSuccess: (List<BoardData>) -> Unit, onError: (Throwable) -> Unit) {
         val apiService = MyApplication().boardListService
@@ -268,6 +368,45 @@ object ReportManager {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Log.d("서버 테스트", "추가 성공")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun sendModReportToServer(reportId: Int, report: Report, authToken: String) {  // 신고 수정
+        val apiService = MyApplication().modReportService
+        val call = apiService.sendModReport(reportId, report, authToken)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("서버 테스트", "추가 성공")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun deleteReportFromServer(reportId: Int) {  // 신고 삭제
+        val apiService = MyApplication().deleteReportService
+        val call = apiService.deleteReportData(reportId)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("서버 테스트", "삭제 성공")
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("서버 테스트", "오류1: $errorBody")

@@ -24,7 +24,11 @@ class MyApplication {
     val logInService = retrofit.create(LogInService::class.java)
     val authJoinService = retrofit.create(AuthJoinService::class.java)
 
-    val festivalService = retrofit.create(FestivalService::class.java)
+    val festivalService = retrofit.create(FestivalListService::class.java)
+    val festivalDetailService = retrofit.create(FestivalDetailService::class.java)
+
+    val eventService = retrofit.create(EventListService::class.java)
+    val eventDetailService = retrofit.create(EventDetailService::class.java)
 
     val boardService = retrofit.create(BoardService::class.java)
     val boardListService = retrofit.create(BoardListService::class.java)
@@ -38,4 +42,7 @@ class MyApplication {
     val reportService = retrofit.create(ReportService::class.java)
     val reportListService = retrofit.create(ReportListService::class.java)
     val reportDetailService = retrofit.create(ReportDetailService::class.java)
+    val modReportService = retrofit.create(ModReportService::class.java)
+    val deleteReportService = retrofit.create(DeleteReportService::class.java)
+
 }

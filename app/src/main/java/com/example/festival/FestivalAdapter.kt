@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -33,6 +34,7 @@ class FestivalAdapter(private var festivals: List<Festival>): RecyclerView.Adapt
         private val titleTextView: TextView = itemView.findViewById(R.id.festival_title)
         private val dateTextView: TextView = itemView.findViewById(R.id.festival_date)
         private val placeTextView: TextView = itemView.findViewById(R.id.festival_place)
+        private val imageView: ImageView = itemView.findViewById(R.id.main_img)
 
         init {
             itemView.setOnClickListener {
@@ -47,7 +49,7 @@ class FestivalAdapter(private var festivals: List<Festival>): RecyclerView.Adapt
         fun bind(festivalList: Festival) {
             titleTextView.text = festivalList.title
             dateTextView.text = "${festivalList.date}"
-            placeTextView.text = festivalList.place
+            placeTextView.text = festivalList.location
         }
 
     }

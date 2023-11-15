@@ -86,6 +86,14 @@
             android:textColor="@color/black"
             android:text="게시판 내용" />
 
+        <!--    이미지 리사이클러뷰  -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imgRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.0" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

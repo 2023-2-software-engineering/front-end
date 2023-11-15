@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBoardActivity">
+    tools:context=".AddIdeaActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" >
 
         <ImageView
-            android:id="@+id/board_cancel_btn"
+            android:id="@+id/idea_cancel_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/x_icon" />
@@ -24,12 +24,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="작성하기"
+            android:text="제안하기"
             android:textColor="#1E1E1E"
             android:textSize="16dp" />
 
         <android.widget.Button
-            android:id="@+id/board_save_btn"
+            android:id="@+id/idea_save_btn"
             android:layout_width="60dp"
             android:layout_height="30dp"
             android:layout_marginRight="18dp"
@@ -57,12 +57,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="게시판 내용"
+            android:text="아이디어 내용"
             android:textColor="#1E1E1E"
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/board_add_title"
+            android:id="@+id/idea_add_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
@@ -73,7 +73,7 @@
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/board_add_content"
+            android:id="@+id/idea_add_content"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:layout_marginBottom="10dp"
@@ -90,31 +90,6 @@
             android:layout_marginTop="8dp"
             android:background="@android:color/darker_gray" />
 
-        <LinearLayout
-            android:id="@+id/add_festival"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/festival_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="축제 추가"
-                android:textColor="#1E1E1E"
-                android:textSize="14dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" > "
-                android:textColor="#1E1E1E"
-                android:textSize="14dp" />
-
-        </LinearLayout>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="0.6dp"
@@ -122,7 +97,6 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:id="@+id/add_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -138,20 +112,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="사진 첨부 >"
+                android:text="사진 첨부"
                 android:layout_gravity="center_vertical"
                 android:textColor="#1E1E1E"
                 android:textSize="14dp" />
 
         </LinearLayout>
-
-        <!--    이미지 리사이클러뷰  -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintHorizontal_bias="0.0" />
 
     </LinearLayout>
 

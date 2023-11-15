@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'    // Kotlin Annotation Processing Tool
 }
 
 android {
@@ -52,9 +53,17 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
     implementation 'com.github.bumptech.glide:glide:4.13.2'
+    kapt 'com.github.bumptech.glide:compiler:4.13.2'//이미지 처리 쉽게 해줌(이미지는 원래 주소로 됨)
     implementation 'com.squareup.retrofit2:retrofit:2.0.0'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     implementation 'com.auth0.android:jwtdecode:2.0.0' //JWT 토큰
+
+    implementation 'androidx.viewpager2:viewpager2:1.0.0' //좌우 슬라이드
+    implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.13.5'
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.13.5'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.13.5'
+
+    implementation 'androidx.activity:activity-compose:1.7.1' // 이미지 새로 추가한 라이브러리
 }

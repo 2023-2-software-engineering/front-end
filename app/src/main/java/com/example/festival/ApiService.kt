@@ -15,9 +15,24 @@ interface AuthJoinService { // 회원가입
     fun sendAuthRequest(@Body join: Join): Call<Void>
 }
 
-interface FestivalService {  // 페스티벌 리스트
-    @GET("festival")
+interface FestivalListService {  // 페스티벌 리스트
+    @GET("festival/list")
     fun getFestivalList(): Call<List<Festival>>
+}
+
+interface FestivalDetailService {  // 페스티벌 상세
+    @GET("festival/detail")
+    fun getFestival(@Query("festivalId") festivalId: Int): Call<Festival>
+}
+
+interface EventListService {  // 이벤트 리스트
+    @GET("event/list")
+    fun getEventList(): Call<List<Event>>
+}
+
+interface EventDetailService {  // 이벤트 상세
+    @GET("event/detail")
+    fun getEvent(@Query("eventId") eventId: Int): Call<Event>
 }
 
 interface BoardService {  // 게시판 작성
@@ -64,12 +79,23 @@ interface ReportService {
     fun sendReport(@Body report: Report, @Header("Authorization") authToken: String): Call<Void>
 }
 
-interface ReportListService {  // 게시판 리스트
+interface ReportListService {  // 신고 리스트
     @GET("report")
     fun getReportList(): Call<List<ReportData>>
 }
 
-interface ReportDetailService {  // 게시판 상세
+interface ReportDetailService {  // 신고 상세
     @GET("report/{reportId}")
     fun getReport(@Path("reportId") reportId: Int): Call<ReportData>
+}
+
+interface ModReportService {  // 신고 수정
+    @PATCH("report/{reportId}")
+    fun sendModReport(@Path("reportId") reportId: Int, @Body report: Report,
+                     @Header("Authorization") authToken: String): Call<Void>
+}
+
+interface DeleteReportService {  // 신고 삭제
+    @DELETE("report/{reportId}")
+    fun deleteReportData(@Path("reportId") reportId: Int): Call<Void>
 }

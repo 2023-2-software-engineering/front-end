@@ -1,10 +1,14 @@
 package com.example.festival
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.festival.databinding.FragmentFestivalBinding
@@ -13,7 +17,9 @@ import com.google.android.material.tabs.TabLayout
 class FestivalFragment : Fragment() {
     lateinit var binding: FragmentFestivalBinding
     private lateinit var festivalAdapter: FestivalAdapter
+    private lateinit var eventAdapter: EventAdapter
     private lateinit var recyclerView: RecyclerView
+    private var searchWord: String ?= null // 검색어
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -49,14 +55,58 @@ class FestivalFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
         festivalAdapter = FestivalAdapter(emptyList())  // 초기에 빈 목록으로 어댑터 설정
+        eventAdapter = EventAdapter(emptyList())
         recyclerView.adapter = festivalAdapter // 리사이클러뷰에 어댑터 설정
 
         loadFestivalList()
+
+        binding.eventBtn.setOnClickListener { //이벤트 버튼 클릭 시 이벤트만 보여주기
+            recyclerView.adapter = eventAdapter
+            loadEventList()
+        }
+
+        binding.festivalBtn.setOnClickListener { // 축제 버튼 클릭 시 축제만 보여주기
+            recyclerView.adapter = festivalAdapter
+            loadFestivalList()
+        }
+
+        // 검색창에서 검색 시
+//        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                if (!query.isNullOrBlank()) {
+//
+//                } else {
+//                    // 검색어가 비어 있을 때 Toast 메시지를 표시
+//                    Toast.makeText(requireContext(), "검색어를 입력하세요", Toast.LENGTH_SHORT).show()
+//                }
+//                return true
+//            }
+//        }
+//        )
     }
 
     // 서버에서 페스티벌 리스트 불러오기
     private fun loadFestivalList() {
-
+        FestivalManager.getFestivalListData(
+            onSuccess = { festivalListResponse ->
+                val festival = festivalListResponse.map { it }
+                festivalAdapter.updateData(festival)
+            },
+            onError = { throwable ->
+                Log.e("서버 테스트", "오류3: $throwable")
+            }
+        )
     }
 
+    private fun loadEventList() {
+        EventManager.getEventListData(
+            onSuccess = { eventListResponse ->
+                val event = eventListResponse.map { it }
+                eventAdapter.updateData(event)
+            },
+            onError = { throwable ->
+                Log.e("서버 테스트", "오류3: $throwable")
+            }
+        )
+    }
 }

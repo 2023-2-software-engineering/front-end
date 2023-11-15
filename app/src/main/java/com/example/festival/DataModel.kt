@@ -20,8 +20,23 @@ data class Festival(
     val festivalId: Int,
     val title: String,
     val content: String,
-    val date: Date,
-    val place: String
+    val image: String,
+    val location: String,
+    val date: Date
+)
+
+data class Event(
+    val eventId: Int,
+    val title: String,
+    val content: String,
+    val image: String,
+    val location: String,
+    val rule: String,
+    val register: String,
+    val ing: Int,
+    val startDay: String,
+    val endDay: String,
+    val resultDay: String
 )
 
 // 게시판 작성

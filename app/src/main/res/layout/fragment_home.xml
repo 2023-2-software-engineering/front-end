@@ -1,14 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".HomeFragment">
+
+    <!--  핫토픽 => 프레그먼트, 스와이프로 넘기면서 변경   -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="홈 프래그먼트" />
+        android:layout_marginLeft="20dp"
+        android:text="새소식"
+        android:textColor="#1E1E1E"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal" >
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/festival_cardView"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="8dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/new_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="축제1"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="5dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/new_content1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상세 내용1"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="5dp"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/festival_cardView2"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="8dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/new_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="축제2"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="5dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/new_content2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상세 내용2"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="5dp"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/festival_cardView3"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_marginHorizontal="5dp"-->
+<!--            android:layout_marginVertical="5dp"-->
+<!--            app:cardCornerRadius="0dp"-->
+<!--            app:cardElevation="8dp" >-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:padding="8dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/new_title3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="축제3"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:layout_gravity="center_horizontal|bottom"-->
+<!--                    android:paddingLeft="8dp"-->
+<!--                    android:paddingRight="8dp"-->
+<!--                    android:paddingBottom="5dp"/>-->
+
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="0.6dp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:background="@android:color/darker_gray" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/new_content3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="상세 내용3"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:layout_gravity="center_horizontal|bottom"-->
+<!--                    android:paddingLeft="8dp"-->
+<!--                    android:paddingRight="8dp"-->
+<!--                    android:paddingBottom="5dp"/>-->
+<!--            </LinearLayout>-->
+
+<!--        </androidx.cardview.widget.CardView>-->
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Hot 축제"
+        android:textColor="#1E1E1E"
+        android:textSize="20dp" />
+
+    <!--  Hot 목록(리사이클러 뷰)  -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hotRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp" />
 
 </LinearLayout>
