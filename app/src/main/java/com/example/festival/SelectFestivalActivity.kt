@@ -29,6 +29,10 @@ class SelectFestivalActivity : AppCompatActivity() {
         recyclerView.adapter = selectFestivalAdapter // 리사이클러뷰에 어댑터 설정
 
         loadFestivalList()
+
+        binding.boardCancelBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun loadFestivalList() {  // 서버에서 리스트 불러오기

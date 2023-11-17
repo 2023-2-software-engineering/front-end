@@ -14,6 +14,8 @@ class AddReportActivity : AppCompatActivity() {
     private var authToken: String ?= null // 로그인 토큰
     private var new: Int ?= 1 // 새로 작성이면 1, 수정이면 0
     private var reportId: Int ?= -1 // 수정일 때의 해당 신고 Id
+    private var festivalId: Int ?= -1
+    private var festivalTitle: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,11 +70,11 @@ class AddReportActivity : AppCompatActivity() {
         val title = binding.reportAddTitle.text.toString()
         val content = binding.reportAddContent.text.toString()
 
-        val report = Report(title, content)
+        val report = Report(title, content, festivalId!!)
         Log.d("my log", "" + report)
 
         if (authToken != null) {
-            ReportManager.sendReportToServer(report, authToken!!)
+            //ReportManager.sendReportToServer(authToken!!, report)
         }
     }
 
@@ -80,11 +82,11 @@ class AddReportActivity : AppCompatActivity() {
         val title = binding.reportAddTitle.text.toString()
         val content = binding.reportAddContent.text.toString()
 
-        val report = Report(title, content)
+        val report = Report(title, content, festivalId!!)
         Log.d("my log", ""+report)
 
         if (authToken != null) {
-            ReportManager.sendModReportToServer(reportId!!, report, authToken!!)
+            //ReportManager.sendModReportToServer(reportId!!, report, authToken!!)
 
             val resultIntent = Intent()
             setResult(Activity.RESULT_OK, resultIntent)

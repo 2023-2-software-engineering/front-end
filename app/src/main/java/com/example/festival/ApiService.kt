@@ -1,5 +1,6 @@
 package com.example.festival
 
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -13,6 +14,18 @@ interface AuthJoinService { // 회원가입
     // 함수명(서버에 보내는 데이터:Body 변수명: 데이터타입): Call<서버에 받아오는 데이터 형태>
     @POST("auth/join")
     fun sendAuthRequest(@Body join: Join): Call<Void>
+}
+
+interface MyPageService {
+    @GET("user/mypage")
+    fun getUser(@Header("Authorization") authToken: String): Call<User>
+}
+
+interface UserUpdateService {
+    @Multipart
+    @PATCH("user/update")
+    fun sendUserUpdate(@Header("Authorization") authToken: String,
+                       @Part("user") user: UserUpdate, @Part image: MultipartBody.Part): Call<Void>
 }
 
 interface FestivalListService {  // 페스티벌 리스트
@@ -37,7 +50,8 @@ interface EventDetailService {  // 이벤트 상세
 
 interface BoardService {  // 게시판 작성
     @POST("partner") // 서버 주소/partner 으로 POST
-    fun sendBoard(@Body board: Board, @Header("Authorization") authToken: String): Call<Void>
+    fun sendBoard(@Part("partner") board: Board, @Part image: MultipartBody.Part,
+        @Header("Authorization") authToken: String): Call<Void>
 }
 
 interface BoardListService {  // 게시판 리스트
@@ -52,7 +66,8 @@ interface BoardDetailService {  // 게시판 상세
 
 interface ModBoardService {  // 게시판 수정
     @PATCH("partner/{partnerId}")
-    fun sendModBoard(@Path("partnerId") boardId: Int, @Body board: Board,
+    fun sendModBoard(@Path("partnerId") boardId: Int,
+                     @Part("partner") board: Board, @Part image: MultipartBody.Part,
                      @Header("Authorization") authToken: String): Call<Void>
 }
 
@@ -76,7 +91,9 @@ interface CommentListService { // 게시판 댓글 조회
 
 interface ReportService {
     @POST("report")
-    fun sendReport(@Body report: Report, @Header("Authorization") authToken: String): Call<Void>
+    fun sendReport(@Header("Authorization") authToken: String,
+                @Part("partner") report: Report, @Part image: MultipartBody.Part,
+    ): Call<Void>
 }
 
 interface ReportListService {  // 신고 리스트
@@ -91,7 +108,8 @@ interface ReportDetailService {  // 신고 상세
 
 interface ModReportService {  // 신고 수정
     @PATCH("report/{reportId}")
-    fun sendModReport(@Path("reportId") reportId: Int, @Body report: Report,
+    fun sendModReport(@Path("reportId") reportId: Int,
+                      @Part("partner") report: Report, @Part image: MultipartBody.Part,
                      @Header("Authorization") authToken: String): Call<Void>
 }
 

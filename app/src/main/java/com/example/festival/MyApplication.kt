@@ -1,6 +1,7 @@
 package com.example.festival
 
 import com.google.gson.*
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -11,6 +12,7 @@ class MyApplication {
     val retrofit = Retrofit.Builder()
         .baseUrl("http://10.0.2.2:8080/api/") // 로컬 URL (본인 걸로 변경)
         .addConverterFactory(GsonConverterFactory.create(getGson()))
+        .client(OkHttpClient.Builder().build())
         .build()
 
     fun getGson(): Gson {
@@ -23,6 +25,8 @@ class MyApplication {
 
     val logInService = retrofit.create(LogInService::class.java)
     val authJoinService = retrofit.create(AuthJoinService::class.java)
+    val myPageService = retrofit.create(MyPageService::class.java)
+    val userUpdateService = retrofit.create(UserUpdateService::class.java)
 
     val festivalService = retrofit.create(FestivalListService::class.java)
     val festivalDetailService = retrofit.create(FestivalDetailService::class.java)

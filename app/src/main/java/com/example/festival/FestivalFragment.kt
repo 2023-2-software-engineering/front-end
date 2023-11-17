@@ -20,6 +20,8 @@ class FestivalFragment : Fragment() {
     private lateinit var eventAdapter: EventAdapter
     private lateinit var recyclerView: RecyclerView
     private var searchWord: String ?= null // 검색어
+    private var searchPlace: String ?= "모든 지역"
+    private var searchIng: String ?= "진행예정"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -63,11 +65,42 @@ class FestivalFragment : Fragment() {
         binding.eventBtn.setOnClickListener { //이벤트 버튼 클릭 시 이벤트만 보여주기
             recyclerView.adapter = eventAdapter
             loadEventList()
+
+            binding.festivalBtn.setBackgroundResource(android.R.color.white)
+            binding.eventBtn.setBackgroundResource(R.drawable.stroke_button)
         }
 
         binding.festivalBtn.setOnClickListener { // 축제 버튼 클릭 시 축제만 보여주기
             recyclerView.adapter = festivalAdapter
             loadFestivalList()
+
+            binding.eventBtn.setBackgroundResource(android.R.color.white)
+            binding.festivalBtn.setBackgroundResource(R.drawable.stroke_button)
+        }
+
+        binding.searchPlaceLayout.setOnClickListener {  // 지역 선택
+            val selectPlaceDialog = BottomSearchPlaceFragment()
+            selectPlaceDialog.setPlaceChangeListener(object : BottomSearchPlaceFragment.PlaceChangeListener{
+                override fun onPlaceChanged(place: String) {
+                    binding.searchPlace.text = place
+                    searchPlace = place
+
+
+                }
+            })
+            selectPlaceDialog.show(childFragmentManager, "select_place_dialog")
+        }
+
+        binding.searchDateLayout.setOnClickListener { // 진행 상황 선택
+            val selectIngDialog = BottomSearchIngFragment()
+            selectIngDialog.setIngChangeListener(object : BottomSearchIngFragment.IngChangeListener{
+                override fun onIngChanged(ing: String) {
+                    binding.searchDate.text = ing
+                    searchIng = ing
+
+                }
+            })
+            selectIngDialog.show(childFragmentManager, "select_ing_dialog")
         }
 
         // 검색창에서 검색 시

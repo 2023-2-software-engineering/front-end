@@ -18,7 +18,7 @@ class IdeaActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "축제 이상 부스 신고"
+        supportActionBar?.title = "아이디어 제안"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)  //툴바에 뒤로 가기 버튼 추가
 
         recyclerView = binding.ideaRecyclerView // 리사이클러뷰 초기화
