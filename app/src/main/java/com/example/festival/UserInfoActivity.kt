@@ -95,7 +95,7 @@ class UserInfoActivity : AppCompatActivity() {
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
             }
-            UserManager.sendUserUpdate(authToken!!, user, imagePart!!)
+            UserManager.sendUserUpdate(authToken!!, user, imagePart)
         }
     }
 

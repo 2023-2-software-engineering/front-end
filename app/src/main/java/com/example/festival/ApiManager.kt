@@ -81,7 +81,7 @@ object UserManager {
         })
     }
 
-    fun sendUserUpdate(authToken: String, user: UserUpdate, image: MultipartBody.Part) {  // 게시판 새로 추가
+    fun sendUserUpdate(authToken: String, user: UserUpdate, image: MultipartBody.Part?) {  // 게시판 새로 추가
         val apiService = MyApplication().userUpdateService
         val call = apiService.sendUserUpdate(authToken, user, image)
         call.enqueue(object : Callback<Void> {

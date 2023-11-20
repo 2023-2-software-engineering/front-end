@@ -9,26 +9,21 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
-import com.amazonaws.regions.Regions
-import com.amazonaws.services.s3.AmazonS3Client
 import com.example.festival.BoardManager.sendBoardToServer
 import com.example.festival.BoardManager.sendModBoardToServer
 import com.example.festival.databinding.ActivityAddBoardBinding
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
-import java.sql.Timestamp
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AddBoardActivity : AppCompatActivity() {
@@ -114,6 +109,28 @@ class AddBoardActivity : AppCompatActivity() {
             }
         }
 
+        binding.root.setOnClickListener {
+            // 화면의 다른 부분을 클릭하면 EditText의 포커스를 해제하고 키보드를 내림
+            binding.boardAddTitle.clearFocus()
+            binding.boardAddContent.clearFocus()
+            hideKeyboard()
+        }
+
+        // EditText의 포커스가 변경될 때마다 호출되는 콜백 메서드 등록
+        binding.boardAddTitle.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                // EditText의 포커스가 해제되었을 때 처리할 내용
+                hideKeyboard()
+            }
+        }
+
+        binding.boardAddContent.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                // EditText의 포커스가 해제되었을 때 처리할 내용
+                hideKeyboard()
+            }
+        }
+
         // 툴바 취소 버튼 클릭 시
         binding.boardCancelBtn.setOnClickListener {
             finish()
@@ -163,6 +180,11 @@ class AddBoardActivity : AppCompatActivity() {
                 }
             )
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     private fun saveBoardToServer() {

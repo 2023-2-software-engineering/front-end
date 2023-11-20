@@ -41,7 +41,17 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-
+        <!-- 검색바 (SearchView) -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:imeOptions="actionSearch"
+            android:background="@drawable/text_border_gray"
+            android:inputType="text"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@null"
+            android:queryHint="축제 검색" />
 
         <!--  축제 목록(리사이클러 뷰)  -->
         <androidx.recyclerview.widget.RecyclerView

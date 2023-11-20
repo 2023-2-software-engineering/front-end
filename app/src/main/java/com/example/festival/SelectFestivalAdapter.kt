@@ -9,7 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class SelectFestivalAdapter(private var festivals: List<Festival>): RecyclerView.Adapter<SelectFestivalAdapter.SelectFestivalViewHolder>() {
+class SelectFestivalAdapter(private var festivals: List<Festival>):
+    RecyclerView.Adapter<SelectFestivalAdapter.SelectFestivalViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectFestivalViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.select_festival_recyclerview, parent, false)

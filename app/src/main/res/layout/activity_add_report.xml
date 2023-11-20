@@ -84,7 +84,45 @@
             android:padding="7dp"
             android:textSize="16dp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray" />
+
         <LinearLayout
+            android:id="@+id/add_festival"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/festival_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="축제 추가"
+                android:textColor="#1E1E1E"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" > "
+                android:textColor="#1E1E1E"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:id="@+id/add_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -100,12 +138,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="사진 첨부"
+                android:text="사진 첨부 > "
                 android:layout_gravity="center_vertical"
                 android:textColor="#1E1E1E"
                 android:textSize="14dp" />
 
         </LinearLayout>
+
+        <!--    이미지 리사이클러뷰  -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.0" />
 
     </LinearLayout>
 

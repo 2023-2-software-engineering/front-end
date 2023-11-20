@@ -25,11 +25,11 @@ interface UserUpdateService {
     @Multipart
     @PATCH("user/update")
     fun sendUserUpdate(@Header("Authorization") authToken: String,
-                       @Part("user") user: UserUpdate, @Part image: MultipartBody.Part): Call<Void>
+                       @Part("user") user: UserUpdate, @Part image: MultipartBody.Part?): Call<Void>
 }
 
 interface FestivalListService {  // 페스티벌 리스트
-    @GET("festival/list")
+    @GET("festival")
     fun getFestivalList(): Call<List<Festival>>
 }
 
@@ -39,7 +39,7 @@ interface FestivalDetailService {  // 페스티벌 상세
 }
 
 interface EventListService {  // 이벤트 리스트
-    @GET("event/list")
+    @GET("event")
     fun getEventList(): Call<List<Event>>
 }
 
@@ -49,6 +49,7 @@ interface EventDetailService {  // 이벤트 상세
 }
 
 interface BoardService {  // 게시판 작성
+    @Multipart
     @POST("partner") // 서버 주소/partner 으로 POST
     fun sendBoard(@Part("partner") board: Board, @Part image: MultipartBody.Part,
         @Header("Authorization") authToken: String): Call<Void>
@@ -65,6 +66,7 @@ interface BoardDetailService {  // 게시판 상세
 }
 
 interface ModBoardService {  // 게시판 수정
+    @Multipart
     @PATCH("partner/{partnerId}")
     fun sendModBoard(@Path("partnerId") boardId: Int,
                      @Part("partner") board: Board, @Part image: MultipartBody.Part,
@@ -90,6 +92,7 @@ interface CommentListService { // 게시판 댓글 조회
 }
 
 interface ReportService {
+    @Multipart
     @POST("report")
     fun sendReport(@Header("Authorization") authToken: String,
                 @Part("partner") report: Report, @Part image: MultipartBody.Part,
@@ -107,6 +110,7 @@ interface ReportDetailService {  // 신고 상세
 }
 
 interface ModReportService {  // 신고 수정
+    @Multipart
     @PATCH("report/{reportId}")
     fun sendModReport(@Path("reportId") reportId: Int,
                       @Part("partner") report: Report, @Part image: MultipartBody.Part,
