@@ -9,21 +9,21 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
-import com.amazonaws.regions.Regions
-import com.amazonaws.services.s3.AmazonS3Client
 import com.example.festival.BoardManager.sendBoardToServer
 import com.example.festival.BoardManager.sendModBoardToServer
 import com.example.festival.databinding.ActivityAddBoardBinding
-import java.sql.Timestamp
-import java.text.SimpleDateFormat
+import com.google.android.material.internal.ViewUtils.hideKeyboard
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.util.*
 
 class AddBoardActivity : AppCompatActivity() {
@@ -33,6 +33,9 @@ class AddBoardActivity : AppCompatActivity() {
     private var boardId: Int ?= -1 // 수정일 때의 해당 게시판 Id
     private lateinit var adapter: MultiImageAdapter
     private var uriList = ArrayList<Uri>()  // 선택한 이미지 uri
+    private var festivalId: Int ?= -1
+    private var festivalTitle: String ?= null
+
 //    private val awsAccessKey = ""
 //    private val awsSecretKey = ""
 //    private val awsCredentials = BasicAWSCredentials(awsAccessKey, awsSecretKey)
@@ -97,12 +100,34 @@ class AddBoardActivity : AppCompatActivity() {
                 // 선택 후 넘어왔을 때 보여줄 내용 추가
 
                 val data = result.data
-                val festivalId = data?.getIntExtra("festivalId", -1)
-                val festivalTitle = data?.getStringExtra("festivalTitle")
+                festivalId = data?.getIntExtra("festivalId", -1)
+                festivalTitle = data?.getStringExtra("festivalTitle")
 
                 if (festivalId != -1) {
                     binding.festivalTitle.text = festivalTitle
                 }
+            }
+        }
+
+        binding.root.setOnClickListener {
+            // 화면의 다른 부분을 클릭하면 EditText의 포커스를 해제하고 키보드를 내림
+            binding.boardAddTitle.clearFocus()
+            binding.boardAddContent.clearFocus()
+            hideKeyboard()
+        }
+
+        // EditText의 포커스가 변경될 때마다 호출되는 콜백 메서드 등록
+        binding.boardAddTitle.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                // EditText의 포커스가 해제되었을 때 처리할 내용
+                hideKeyboard()
+            }
+        }
+
+        binding.boardAddContent.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                // EditText의 포커스가 해제되었을 때 처리할 내용
+                hideKeyboard()
             }
         }
 
@@ -157,33 +182,62 @@ class AddBoardActivity : AppCompatActivity() {
         }
     }
 
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
+
     private fun saveBoardToServer() {
         val title = binding.boardAddTitle.text.toString()
         val content = binding.boardAddContent.text.toString()
+        var imagePart: MultipartBody.Part ?= null
 
-        val board = Board(title, content)
+        val board = Board(title, content, festivalId!!)
         Log.d("my log", ""+board)
 
         if (authToken != null) {
-            sendBoardToServer(board, authToken!!)
+            if (uriList.isNotEmpty()) {
+                val file = File(getRealPathFromURI(uriList[0]))
+                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+            }
+            sendBoardToServer(board, imagePart!!, authToken!!)
         }
     }
 
     private fun modBoardToServer() {
         val title = binding.boardAddTitle.text.toString()
         val content = binding.boardAddContent.text.toString()
+        var imagePart: MultipartBody.Part ?= null
 
-        val board = Board(title, content)
+        val board = Board(title, content, festivalId!!)
         Log.d("my log", ""+board)
 
         if (authToken != null) {
-            sendModBoardToServer(boardId!!, board, authToken!!)
+            if (uriList.isNotEmpty()) {
+                val file = File(getRealPathFromURI(uriList[0]))
+                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+            }
+            sendModBoardToServer(boardId!!, board, imagePart!!, authToken!!)
 
             val resultIntent = Intent()
             setResult(RESULT_OK, resultIntent)
             Log.d("my log", "수정본 요청")
             finish() // 현재 액티비티 종료
         }
+    }
+
+    private fun getRealPathFromURI(uri: Uri): String {
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.let {
+            it.moveToFirst()
+            val columnIndex = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            val filePath = it.getString(columnIndex)
+            it.close()
+            return filePath ?: ""
+        }
+        return ""
     }
 
     override fun onResume() {

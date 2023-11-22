@@ -1,6 +1,7 @@
 package com.example.festival
 
 import android.util.Log
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +43,51 @@ object LogInManager {
                     } else {
                         Log.e("서버 테스트", "토큰이 없습니다.")
                     }
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+}
+
+object UserManager {
+    fun getUserData(authToken: String, onSuccess: (User) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().myPageService
+        val call = apiService.getUser(authToken)
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun sendUserUpdate(authToken: String, user: UserUpdate, image: MultipartBody.Part?) {  // 게시판 새로 추가
+        val apiService = MyApplication().userUpdateService
+        val call = apiService.sendUserUpdate(authToken, user, image)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("서버 테스트", "업데이트 성공")
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("서버 테스트", "오류1: $errorBody")
@@ -204,9 +250,9 @@ object BoardManager {
         })
     }
 
-    fun sendBoardToServer(board: Board, authToken: String) {  // 게시판 새로 추가
+    fun sendBoardToServer(board: Board, image: MultipartBody.Part, authToken: String) {  // 게시판 새로 추가
         val apiService = MyApplication().boardService
-        val call = apiService.sendBoard(board, authToken)
+        val call = apiService.sendBoard(board, image, authToken)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
@@ -223,9 +269,9 @@ object BoardManager {
         })
     }
 
-    fun sendModBoardToServer(boardId: Int, board: Board, authToken: String) {  // 게시판 수정
+    fun sendModBoardToServer(boardId: Int, board: Board, image: MultipartBody.Part, authToken: String) {  // 게시판 수정
         val apiService = MyApplication().modBoardService
-        val call = apiService.sendModBoard(boardId, board, authToken)
+        val call = apiService.sendModBoard(boardId, board, image, authToken)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
@@ -361,9 +407,9 @@ object ReportManager {
         })
     }
 
-    fun sendReportToServer(report: Report, authToken: String) {  // 신고 새로 추가
+    fun sendReportToServer(authToken: String, report: Report, image: MultipartBody.Part) {  // 신고 새로 추가
         val apiService = MyApplication().reportService
-        val call = apiService.sendReport(report, authToken)
+        val call = apiService.sendReport(authToken, report, image)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
@@ -380,9 +426,9 @@ object ReportManager {
         })
     }
 
-    fun sendModReportToServer(reportId: Int, report: Report, authToken: String) {  // 신고 수정
+    fun sendModReportToServer(reportId: Int, report: Report, image: MultipartBody.Part, authToken: String) {  // 신고 수정
         val apiService = MyApplication().modReportService
-        val call = apiService.sendModReport(reportId, report, authToken)
+        val call = apiService.sendModReport(reportId, report, image, authToken)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {

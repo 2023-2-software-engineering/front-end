@@ -16,6 +16,21 @@ data class Join(
     val phoneNumber: String
 )
 
+data class User(
+    val userId: Int,
+    val username: String,
+    val identify: String,
+    val nickname: String,
+    val password: String,
+    val address: String,
+    val phoneNumber: String
+)
+
+data class UserUpdate(
+    val username: String,
+    val address: String,
+)
+
 data class Festival(
     val festivalId: Int,
     val title: String,
@@ -42,7 +57,8 @@ data class Event(
 // 게시판 작성
 data class Board(
     val title: String,
-    val content: String
+    val content: String,
+    val festivalId: Int
 )
 
 data class BoardData(
@@ -52,7 +68,9 @@ data class BoardData(
     val createdAt: String,
     val count: Int,
     val nickname: String,
-    val address: String
+    val address: String,
+    val festivalId: Int,
+    val image: String
 )
 
 // 댓글 작성
@@ -83,7 +101,8 @@ data class ReplyList(
 // 신고 작성
 data class Report(
     val title: String,
-    val content: String
+    val content: String,
+    val festivalId: Int
 )
 
 data class ReportData(
@@ -93,5 +112,13 @@ data class ReportData(
     val title: String,
     val content: String,
     val createdAt: String,
-    val done: Boolean
+    val done: Boolean,
+    val image: String,
+    val festivalId: Int
+)
+
+data class Main(
+    val festivalId: Int,
+    val title: String,
+    val image: String ?= null,
 )

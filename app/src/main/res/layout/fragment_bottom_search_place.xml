@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_search_place"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색 기준"
+        android:textSize="20dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@android:color/darker_gray" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/search_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="모든 지역"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="강남구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="강동구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="강서구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="관악구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="광진구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="구로구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="금천구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="노원구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="도봉구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="동대문구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="동작구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="마포구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="서대문구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="서초구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="성동구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="성북구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="송파구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="양천구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="영등포구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="용산구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="은평구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="종로구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="중구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/search_24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="중랑구"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

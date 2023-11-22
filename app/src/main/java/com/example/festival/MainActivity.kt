@@ -1,6 +1,7 @@
 package com.example.festival
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -11,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -100,12 +102,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menu_1 -> {
-                Log.d("my log","클릭 작동중")
+                Log.d("my log","이상 부스 신고 이동")
                 val intent = Intent(this, ReportActivity::class.java)
                 startActivity(intent)
             }
-            R.id.menu_2 -> {}
-            R.id.menu_3 -> {}
+            R.id.menu_2 -> {
+                Log.d("my log","아이디어 제안 이동")
+                val intent = Intent(this, IdeaActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_3 -> {
+                val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("auth_token", null)
+                editor.apply()
+
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
         }
         return true
     }

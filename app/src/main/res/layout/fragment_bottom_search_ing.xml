@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_search_ing"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색 기준"
+        android:textSize="20dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/search_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="전체"
+        android:textSize="20dp"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/search_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="진행예정"
+        android:textSize="20dp"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/search_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="진행중"
+        android:textSize="20dp"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/search_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="진행완료"
+        android:textSize="20dp"
+        android:padding="10dp" />
+
+</LinearLayout>

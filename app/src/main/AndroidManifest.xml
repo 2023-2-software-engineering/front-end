@@ -23,16 +23,20 @@
         android:theme="@style/Theme.Festival"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".UserInfoActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.diary.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <activity
             android:name=".EventDetailActivity"
             android:exported="false" />
@@ -78,7 +82,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="파티 투게더" />
+            android:label="투게더 서울" />
     </application>
 
 </manifest>
