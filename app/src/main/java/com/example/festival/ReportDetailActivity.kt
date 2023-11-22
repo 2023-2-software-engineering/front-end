@@ -108,6 +108,13 @@ class ReportDetailActivity : AppCompatActivity() {
             )
         }
 
+        binding.reportYet.setOnClickListener { // 조치 완료 처리하기
+            ReportManager.doneReportToServer(reportId)
+
+            binding.reportYet.visibility = View.GONE
+            binding.reportDone.visibility = View.VISIBLE
+        }
+
         reportModActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 Log.d("my log", "수정본")

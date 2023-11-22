@@ -24,6 +24,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".IdeaDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserInfoActivity"
             android:exported="false" />
 
@@ -82,7 +85,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="투게더 서울" />
+            android:label="" />
     </application>
 
 </manifest>

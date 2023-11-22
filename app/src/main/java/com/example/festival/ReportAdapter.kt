@@ -56,7 +56,8 @@ class ReportAdapter(private var reports: List<ReportData>) : RecyclerView.Adapte
             writerTextView.text = reportList.nickname
 
             if (reportList.done == true) {  // 조치 완료 라면
-                doneTextView.visibility = View.GONE
+                doneTextView.visibility = View.VISIBLE
+            } else {
                 yetTextView.visibility = View.VISIBLE
             }
 

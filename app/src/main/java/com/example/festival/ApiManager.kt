@@ -250,7 +250,7 @@ object BoardManager {
         })
     }
 
-    fun sendBoardToServer(board: Board, image: MultipartBody.Part, authToken: String) {  // 게시판 새로 추가
+    fun sendBoardToServer(board: Board, image: MultipartBody.Part?, authToken: String) {  // 게시판 새로 추가
         val apiService = MyApplication().boardService
         val call = apiService.sendBoard(board, image, authToken)
         call.enqueue(object : Callback<Void> {
@@ -269,7 +269,7 @@ object BoardManager {
         })
     }
 
-    fun sendModBoardToServer(boardId: Int, board: Board, image: MultipartBody.Part, authToken: String) {  // 게시판 수정
+    fun sendModBoardToServer(boardId: Int, board: Board, image: MultipartBody.Part?, authToken: String) {  // 게시판 수정
         val apiService = MyApplication().modBoardService
         val call = apiService.sendModBoard(boardId, board, image, authToken)
         call.enqueue(object : Callback<Void> {
@@ -407,7 +407,7 @@ object ReportManager {
         })
     }
 
-    fun sendReportToServer(authToken: String, report: Report, image: MultipartBody.Part) {  // 신고 새로 추가
+    fun sendReportToServer(authToken: String, report: Report, image: MultipartBody.Part?) {  // 신고 새로 추가
         val apiService = MyApplication().reportService
         val call = apiService.sendReport(authToken, report, image)
         call.enqueue(object : Callback<Void> {
@@ -453,6 +453,26 @@ object ReportManager {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Log.d("서버 테스트", "삭제 성공")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun doneReportToServer(reportId: Int) {
+        val apiService = MyApplication().doneReportService
+        val call = apiService.doneReport(reportId)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("서버 테스트", "수정 성공")
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("서버 테스트", "오류1: $errorBody")

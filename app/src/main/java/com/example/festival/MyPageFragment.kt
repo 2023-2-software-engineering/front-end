@@ -46,6 +46,11 @@ class MyPageFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.infoUpdate.setOnClickListener {
+            val intent = Intent(activity, UserInfoActivity::class.java)
+            startActivity(intent)
+        }
+
         return binding.root
     }
 

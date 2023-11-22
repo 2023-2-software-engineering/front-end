@@ -50,12 +50,6 @@ class BottomSearchIngFragment : BottomSheetDialogFragment() {
             dismiss() // 다이얼로그 닫기
         }
 
-        val button3 = view.findViewById<TextView>(R.id.search_3)
-        button3.setOnClickListener {
-            ingChangeListener?.onIngChanged("진행완료")
-            dismiss() // 다이얼로그 닫기
-        }
-
         return view
     }
 

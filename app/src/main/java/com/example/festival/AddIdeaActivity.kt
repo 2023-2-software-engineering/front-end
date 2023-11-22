@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import com.example.festival.databinding.ActivityAddBoardBinding
 import com.example.festival.databinding.ActivityAddIdeaBinding
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 
 class AddIdeaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddIdeaBinding
@@ -30,6 +32,28 @@ class AddIdeaActivity : AppCompatActivity() {
 
         // 새로 작성 or 수정 (1이면 새로 작성, 아니면 수정)
         new = intent.getIntExtra("new_idea", 1)
+
+        binding.root.setOnClickListener {
+            // 화면의 다른 부분을 클릭하면 EditText의 포커스를 해제하고 키보드를 내림
+            binding.ideaAddTitle.clearFocus()
+            binding.ideaAddContent.clearFocus()
+            hideKeyboard()
+        }
+
+        // EditText의 포커스가 변경될 때마다 호출되는 콜백 메서드 등록
+        binding.ideaAddTitle.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                // EditText의 포커스가 해제되었을 때 처리할 내용
+                hideKeyboard()
+            }
+        }
+
+        binding.ideaAddContent.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                // EditText의 포커스가 해제되었을 때 처리할 내용
+                hideKeyboard()
+            }
+        }
 
         // 툴바 취소 버튼 클릭 시
         binding.ideaCancelBtn.setOnClickListener {
@@ -62,6 +86,11 @@ class AddIdeaActivity : AppCompatActivity() {
 //                }
 //            )
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     private fun saveIdeaToServer() {
