@@ -56,8 +56,11 @@ class ReportAdapter(private var reports: List<ReportData>) : RecyclerView.Adapte
             writerTextView.text = reportList.nickname
 
             if (reportList.done == true) {  // 조치 완료 라면
-                doneTextView.visibility = View.GONE
+                doneTextView.visibility = View.VISIBLE
+                yetTextView.visibility = View.GONE
+            } else {
                 yetTextView.visibility = View.VISIBLE
+                doneTextView.visibility = View.GONE
             }
 
             val parts = reportList.createdAt.split("T")

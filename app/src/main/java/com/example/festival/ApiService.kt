@@ -34,8 +34,8 @@ interface FestivalListService {  // 페스티벌 리스트
 }
 
 interface FestivalDetailService {  // 페스티벌 상세
-    @GET("festival/detail")
-    fun getFestival(@Query("festivalId") festivalId: Int): Call<Festival>
+    @GET("festival/{festivalId}")
+    fun getFestival(@Path("festivalId") festivalId: Int): Call<Festival>
 }
 
 interface EventListService {  // 이벤트 리스트
@@ -44,14 +44,75 @@ interface EventListService {  // 이벤트 리스트
 }
 
 interface EventDetailService {  // 이벤트 상세
-    @GET("event/detail")
-    fun getEvent(@Query("eventId") eventId: Int): Call<Event>
+    @GET("event/{eventId}")
+    fun getEvent(@Path("eventId") eventId: Int): Call<Event>
+}
+
+interface FestivalLikeService { // 축제 좋아요
+    @POST("festival_like/{festivalId}")
+    fun sendFestivalLike(@Path("festivalId") festivalId: Int,
+                         @Header("Authorization") authToken: String): Call<Void>
+}
+
+interface FestivalUnlikeService { // 축제 좋아요 취소
+    @DELETE("festival_like/{festivalId}")
+    fun deleteFestivalLike(@Path("festivalId") festivalId: Int,
+                         @Header("Authorization") authToken: String): Call<Void>
+}
+
+interface FestivalLikeListService { // 축제 좋아요 개수
+    @GET("festival_like/{festivalId}")
+    fun getFestivalLike(@Path("festivalId") festivalId: Int): Call<Int>
+}
+
+interface FestivalLikeCheckService { // 내 좋아요 확인
+    @GET("festival_like/check")
+    fun getFestivalLikeCheck(@Query("festivalId") festivalId: Int,
+                          @Header("Authorization") authToken: String): Call<Int>
+}
+
+interface HotFestivalListService { // 핫 축제 리스트
+    @GET("festival_like/top")
+    fun getHotFestivalLike(): Call<List<Festival>>
+}
+
+interface EventLikeService { // 이벤트 좋아요
+    @POST("event_like/{eventId}")
+    fun sendEventLike(@Path("eventId") eventId: Int,
+                         @Header("Authorization") authToken: String): Call<Void>
+}
+
+interface EventUnlikeService { // 이벤트 좋아요 취소
+    @DELETE("event_like/{eventId}")
+    fun deleteEventLike(@Path("eventId") eventId: Int,
+                           @Header("Authorization") authToken: String): Call<Void>
+}
+
+interface EventLikeListService { // 이벤트 좋아요 개수
+    @GET("event_like/{eventId}")
+    fun getEventLike(@Path("eventId") eventId: Int): Call<Int>
+}
+
+interface EventLikeCheckService { // 내 좋아요 확인
+    @GET("event_like/check")
+    fun getEventLikeCheck(@Query("eventId") eventId: Int,
+                          @Header("Authorization") authToken: String): Call<Int>
+}
+
+interface FestivalViewTopService { // 조회수 탑1 조회
+    @GET("festival/view")
+    fun getFestivalViewTop(): Call<Festival>
+}
+
+interface EventViewTopService {
+    @GET("event/view")
+    fun getEventViewTop(): Call<Event>
 }
 
 interface BoardService {  // 게시판 작성
     @Multipart
     @POST("partner") // 서버 주소/partner 으로 POST
-    fun sendBoard(@Part("partner") board: Board, @Part image: MultipartBody.Part,
+    fun sendBoard(@Part("partner") board: Board, @Part image: MultipartBody.Part?,
         @Header("Authorization") authToken: String): Call<Void>
 }
 
@@ -69,7 +130,7 @@ interface ModBoardService {  // 게시판 수정
     @Multipart
     @PATCH("partner/{partnerId}")
     fun sendModBoard(@Path("partnerId") boardId: Int,
-                     @Part("partner") board: Board, @Part image: MultipartBody.Part,
+                     @Part("partner") board: Board, @Part image: MultipartBody.Part?,
                      @Header("Authorization") authToken: String): Call<Void>
 }
 
@@ -95,7 +156,7 @@ interface ReportService {
     @Multipart
     @POST("report")
     fun sendReport(@Header("Authorization") authToken: String,
-                @Part("partner") report: Report, @Part image: MultipartBody.Part,
+                @Part("report") report: Report, @Part image: MultipartBody.Part?,
     ): Call<Void>
 }
 
@@ -113,11 +174,16 @@ interface ModReportService {  // 신고 수정
     @Multipart
     @PATCH("report/{reportId}")
     fun sendModReport(@Path("reportId") reportId: Int,
-                      @Part("partner") report: Report, @Part image: MultipartBody.Part,
+                      @Part("report") report: Report, @Part image: MultipartBody.Part,
                      @Header("Authorization") authToken: String): Call<Void>
 }
 
 interface DeleteReportService {  // 신고 삭제
     @DELETE("report/{reportId}")
     fun deleteReportData(@Path("reportId") reportId: Int): Call<Void>
+}
+
+interface DoneReportService { // 신고 처리
+    @PATCH("report/{reportId}/done")
+    fun doneReport(@Path("reportId") reportId: Int): Call<Void>
 }

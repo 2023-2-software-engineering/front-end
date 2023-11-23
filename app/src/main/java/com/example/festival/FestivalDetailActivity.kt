@@ -1,7 +1,6 @@
 package com.example.festival
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +15,8 @@ class FestivalDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFestivalDetailBinding
     private var festivalId = -1 // 현재 축제 ID를 담는 변수
     private var authToken: String ?= null // 로그인 토큰
-
+    private var likeCount: Int ?= 0
+    private var isLiked:Boolean = false // 초기에는 좋아요가 되지 않은 상태로
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +41,90 @@ class FestivalDetailActivity : AppCompatActivity() {
                     binding.festivalText.text = festivalDetail.content
                     //binding.festivalDate.text = festivalDetail.date.toString()
                     binding.festivalPlace.text = festivalDetail.location
+                    binding.viewCount.text = "${festivalDetail.view} 회"
 
                     Glide.with(this)
-                        .load("https://narsha-bucket-s3.s3.ap-northeast-2.amazonaws.com/post/2023/09/03/b4692b00-9c83-4268-96eb-fd82525e27b0.png")
+                        .load(festivalDetail.image)
                         .into(binding.festivalImg)
                 },
                 onError = { throwable ->
                     Log.e("서버 테스트3", "오류: $throwable")
                 }
             )
+            FestivalManager.getFestivalLike(
+                festivalId,
+                onSuccess = { festivallike ->
+                    likeCount = festivallike
+                    binding.festivalLike.text = "$festivallike"
+
+                    // 좋아요 상태에 따라 UI 업데이트
+                    updateLikeUI()
+                },
+                onError = { throwable ->
+                    Log.e("서버 테스트3", "오류: $throwable")
+                }
+            )
+            if (authToken != null) {
+                FestivalManager.getFestivalLikeCheck(
+                    festivalId, authToken!!,
+                    onSuccess = { isMe ->
+                        isLiked = (isMe == 1)
+                        updateLikeUI()
+                    },
+                    onError = { throwable ->
+                        Log.e("서버 테스트3", "오류: $throwable")
+                    }
+                )
+            }
+        }
+
+        binding.festivalLikeImg.setOnClickListener { // 좋아요 버튼 클릭 시
+            if (authToken != null) {
+                isLiked = !isLiked // 토글 형식으로 상태 변경
+                if (isLiked) { //좋아요 요청
+                    FestivalManager.sendFestivalLike(festivalId, authToken!!) { isSuccess ->
+                        if (isSuccess) {
+                            updateLikeUI() // 좋아요 상태 UI 업데이트
+                            // 좋아요 수 업데이트
+                            FestivalManager.getFestivalLike(
+                                festivalId,
+                                onSuccess = { festivallike ->
+                                    likeCount = festivallike
+                                    binding.festivalLike.text = "$festivallike"
+                                },
+                                onError = { throwable ->
+                                    Log.e("서버 테스트3", "오류: $throwable")
+                                }
+                            )
+                        }
+                    }
+                } else { //좋아요 해제
+                    FestivalManager.deleteFestivalLike(festivalId, authToken!!) { isSuccess ->
+                        if (isSuccess) {
+                            updateLikeUI() // 좋아요 상태 UI 업데이트
+                            // 좋아요 수 업데이트
+                            FestivalManager.getFestivalLike(
+                                festivalId,
+                                onSuccess = { festivallike ->
+                                    likeCount = festivallike
+                                    binding.festivalLike.text = "$festivallike"
+                                },
+                                onError = { throwable ->
+                                    Log.e("서버 테스트3", "오류: $throwable")
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateLikeUI() {
+        if (isLiked) { //로그인 한 유저가 좋아요를 누른 상태라면
+            binding.festivalLikeImg.text = "♥ "
+        } else { //로그인 한 유저가 좋아요를 누른 상태가 아니라면
+            binding.festivalLikeImg.text = "♡ "
         }
     }
 

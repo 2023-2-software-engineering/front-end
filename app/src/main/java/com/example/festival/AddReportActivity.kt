@@ -9,12 +9,14 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.festival.databinding.ActivityAddReportBinding
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -79,7 +81,7 @@ class AddReportActivity : AppCompatActivity() {
         adapter = MultiImageAdapter(uriList, this)
         binding.recyclerView.adapter = adapter
 
-        AddBoardActivity.selectFestivalActivityResult = registerForActivityResult(
+        selectFestivalActivityResult = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 Log.d("my log", "선택 완료")
@@ -92,6 +94,28 @@ class AddReportActivity : AppCompatActivity() {
                 if (festivalId != -1) {
                     binding.festivalTitle.text = festivalTitle
                 }
+            }
+        }
+
+        binding.root.setOnClickListener {
+            // 화면의 다른 부분을 클릭하면 EditText의 포커스를 해제하고 키보드를 내림
+            binding.reportAddTitle.clearFocus()
+            binding.reportAddContent.clearFocus()
+            hideKeyboard()
+        }
+
+        // EditText의 포커스가 변경될 때마다 호출되는 콜백 메서드 등록
+        binding.reportAddTitle.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                // EditText의 포커스가 해제되었을 때 처리할 내용
+                hideKeyboard()
+            }
+        }
+
+        binding.reportAddContent.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                // EditText의 포커스가 해제되었을 때 처리할 내용
+                hideKeyboard()
             }
         }
 
@@ -113,7 +137,7 @@ class AddReportActivity : AppCompatActivity() {
         // 축제 추가 버튼 클릭 시
         binding.addFestival.setOnClickListener {
             val intent = Intent(this, SelectFestivalActivity::class.java)
-            AddBoardActivity.selectFestivalActivityResult.launch(intent)
+            selectFestivalActivityResult.launch(intent)
             Log.d("my log", "추가하러 가기")
         }
 
@@ -146,6 +170,11 @@ class AddReportActivity : AppCompatActivity() {
         }
     }
 
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
+
     private fun saveReportToServer() {
         val title = binding.reportAddTitle.text.toString()
         val content = binding.reportAddContent.text.toString()
@@ -159,20 +188,34 @@ class AddReportActivity : AppCompatActivity() {
                 val file = File(getRealPathFromURI(uriList[0]))
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+            } else {
+                // 이미지가 없는 경우 빈 이미지를 생성하여 포함
+                val emptyImageRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), "")
+                imagePart = MultipartBody.Part.createFormData("image", "", emptyImageRequestBody)
             }
-            //ReportManager.sendReportToServer(authToken!!, report)
+            ReportManager.sendReportToServer(authToken!!, report, imagePart)
         }
     }
 
     private fun modReportToServer() {
         val title = binding.reportAddTitle.text.toString()
         val content = binding.reportAddContent.text.toString()
+        var imagePart: MultipartBody.Part ?= null
 
         val report = Report(title, content, festivalId!!)
         Log.d("my log", ""+report)
 
         if (authToken != null) {
-            //ReportManager.sendModReportToServer(reportId!!, report, authToken!!)
+            if (uriList.isNotEmpty()) {
+                val file = File(getRealPathFromURI(uriList[0]))
+                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+            } else {
+                // 이미지가 없는 경우 빈 이미지를 생성하여 포함
+                val emptyImageRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), "")
+                imagePart = MultipartBody.Part.createFormData("image", "", emptyImageRequestBody)
+            }
+            ReportManager.sendModReportToServer(reportId!!, report, imagePart, authToken!!)
 
             val resultIntent = Intent()
             setResult(Activity.RESULT_OK, resultIntent)

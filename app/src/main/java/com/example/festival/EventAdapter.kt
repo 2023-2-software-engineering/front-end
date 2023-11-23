@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class EventAdapter(private var events: List<Event>): RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
@@ -51,6 +52,13 @@ class EventAdapter(private var events: List<Event>): RecyclerView.Adapter<EventA
             titleTextView.text = eventList.title
             startTextView.text = "${eventList.startDay}"
             endTextView.text = "${eventList.endDay}"
+
+            Glide.with(itemView.context)
+                .load(eventList.image)
+                .placeholder(R.drawable.festival_main) // 플레이스홀더 이미지 리소스
+                .error(R.drawable.festival_main) // 에러 이미지 리소스
+                .into(imageView)
+
             if (eventList.ing == 0) {
                 ingTextView.visibility = View.GONE
                 closeTextView.visibility = View.VISIBLE

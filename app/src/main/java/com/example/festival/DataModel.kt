@@ -23,7 +23,8 @@ data class User(
     val nickname: String,
     val password: String,
     val address: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val image: String
 )
 
 data class UserUpdate(
@@ -37,7 +38,10 @@ data class Festival(
     val content: String,
     val image: String,
     val location: String,
-    val date: Date
+    val startDay: String,
+    val endDay: String,
+    val state: Int,
+    val view: Int
 )
 
 data class Event(
@@ -51,7 +55,9 @@ data class Event(
     val ing: Int,
     val startDay: String,
     val endDay: String,
-    val resultDay: String
+    val resultDay: String,
+    val state: Int,
+    val view: Int
 )
 
 // 게시판 작성

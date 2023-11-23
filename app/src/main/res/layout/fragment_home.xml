@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="새소식"
+        android:text="Top 조회수"
         android:textColor="#1E1E1E"
         android:textSize="20dp" />
 
@@ -97,7 +97,7 @@
                     android:id="@+id/new_title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="축제2"
+                    android:text="이벤트1"
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
                     android:layout_gravity="center_horizontal|bottom"

@@ -200,8 +200,12 @@ class AddBoardActivity : AppCompatActivity() {
                 val file = File(getRealPathFromURI(uriList[0]))
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+            } else {
+                // 이미지가 없는 경우 빈 이미지를 생성하여 포함
+                val emptyImageRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), "")
+                imagePart = MultipartBody.Part.createFormData("image", "", emptyImageRequestBody)
             }
-            sendBoardToServer(board, imagePart!!, authToken!!)
+            sendBoardToServer(board, imagePart, authToken!!)
         }
     }
 
@@ -218,8 +222,12 @@ class AddBoardActivity : AppCompatActivity() {
                 val file = File(getRealPathFromURI(uriList[0]))
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+            } else {
+                // 이미지가 없는 경우 빈 이미지를 생성하여 포함
+                val emptyImageRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), "")
+                imagePart = MultipartBody.Part.createFormData("image", "", emptyImageRequestBody)
             }
-            sendModBoardToServer(boardId!!, board, imagePart!!, authToken!!)
+            sendModBoardToServer(boardId!!, board, imagePart, authToken!!)
 
             val resultIntent = Intent()
             setResult(RESULT_OK, resultIntent)

@@ -12,7 +12,6 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.festival.databinding.FragmentFestivalBinding
-import com.google.android.material.tabs.TabLayout
 
 class FestivalFragment : Fragment() {
     lateinit var binding: FragmentFestivalBinding
