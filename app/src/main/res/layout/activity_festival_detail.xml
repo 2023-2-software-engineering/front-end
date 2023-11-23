@@ -22,6 +22,18 @@
             android:orientation="horizontal">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="조회수: "/>
+
+            <TextView
+                android:id="@+id/view_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="0회" />
+
+            <TextView
                 android:id="@+id/festival_like_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,7 +44,7 @@
                 android:id="@+id/festival_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
+                android:text="0"
                 android:textSize="18dp"/>
 
         </LinearLayout>

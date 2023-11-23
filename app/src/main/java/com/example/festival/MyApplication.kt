@@ -34,6 +34,21 @@ class MyApplication {
     val eventService = retrofit.create(EventListService::class.java)
     val eventDetailService = retrofit.create(EventDetailService::class.java)
 
+    val festivalLikeService = retrofit.create(FestivalLikeService::class.java)
+    val festivalUnlikeService = retrofit.create(FestivalUnlikeService::class.java)
+    val festivalLikeListService = retrofit.create(FestivalLikeListService::class.java)
+    val festivalLikeCheckService = retrofit.create(FestivalLikeCheckService::class.java)
+
+    val hotFestivalListService = retrofit.create(HotFestivalListService::class.java)
+
+    val eventLikeService = retrofit.create(EventLikeService::class.java)
+    val eventUnlikeService = retrofit.create(EventUnlikeService::class.java)
+    val eventLikeListService = retrofit.create(EventLikeListService::class.java)
+    val eventLikeCheckService = retrofit.create(EventLikeCheckService::class.java)
+
+    val festivalViewTopService = retrofit.create(FestivalViewTopService::class.java)
+    val eventViewTopService = retrofit.create(EventViewTopService::class.java)
+
     val boardService = retrofit.create(BoardService::class.java)
     val boardListService = retrofit.create(BoardListService::class.java)
     val boardDetailService = retrofit.create(BoardDetailService::class.java)

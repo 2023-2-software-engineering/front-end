@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.festival.databinding.FragmentMyPageBinding
 
 class MyPageFragment : Fragment() {
@@ -28,12 +29,15 @@ class MyPageFragment : Fragment() {
             UserManager.getUserData(
                 authToken!!,
                 onSuccess = { userData ->
-                    val editName = Editable.Factory.getInstance().newEditable(userData.username)
-                    val editAddress = Editable.Factory.getInstance().newEditable(userData.address)
-                    val editPhone = Editable.Factory.getInstance().newEditable(userData.phoneNumber)
-                    binding.mypageName.text = editName
-                    binding.mypageAddress.text = editAddress
-                    binding.mypageTel.text = editPhone
+                    binding.mypageName.text = userData.username
+                    binding.mypageAddress.text = userData.address
+                    binding.mypageTel.text = userData.phoneNumber
+
+                    Glide.with(this)
+                        .load(userData.image)
+                        .placeholder(R.drawable.user_basic) // 플레이스홀더 이미지 리소스
+                        .error(R.drawable.user_basic) // 에러 이미지 리소스
+                        .into(binding.userImageView )
                 },
                 onError = { throwable ->
                     Log.e("서버 테스트", "오류3: $throwable")

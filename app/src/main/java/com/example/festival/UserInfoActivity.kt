@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import com.bumptech.glide.Glide
 import com.example.festival.databinding.ActivityUserInfoBinding
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -59,6 +60,12 @@ class UserInfoActivity : AppCompatActivity() {
                     val editAddress = Editable.Factory.getInstance().newEditable(userData.address)
                     binding.userName.text = editName
                     binding.userAddress.text = editAddress
+
+                    Glide.with(this)
+                        .load(userData.image)
+                        .placeholder(R.drawable.user_basic) // 플레이스홀더 이미지 리소스
+                        .error(R.drawable.user_basic) // 에러 이미지 리소스
+                        .into(binding.userImg)
                 },
                 onError = { throwable ->
                     Log.e("서버 테스트", "오류3: $throwable")

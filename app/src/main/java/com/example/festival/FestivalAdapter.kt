@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class FestivalAdapter(private var festivals: List<Festival>): RecyclerView.Adapter<FestivalAdapter.FestivalViewHolder>() {
 
@@ -48,8 +49,14 @@ class FestivalAdapter(private var festivals: List<Festival>): RecyclerView.Adapt
 
         fun bind(festivalList: Festival) {
             titleTextView.text = festivalList.title
-            dateTextView.text = "${festivalList.date}"
+            dateTextView.text = "${festivalList.startDay} ~ ${festivalList.endDay}"
             placeTextView.text = festivalList.location
+
+            Glide.with(itemView.context)
+                .load(festivalList.image)
+                .placeholder(R.drawable.festival_main) // 플레이스홀더 이미지 리소스
+                .error(R.drawable.festival_main) // 에러 이미지 리소스
+                .into(imageView)
         }
 
     }

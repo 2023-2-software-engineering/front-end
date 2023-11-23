@@ -3,6 +3,7 @@ package com.example.festival
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,9 @@ class ReportDetailActivity : AppCompatActivity() {
     private var reportId = -1 // 현재 신고 ID를 담는 변수
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var imgAdapter: MultiImageAdapter
+    private lateinit var imgRecyclerView: RecyclerView
+    private var uriList = ArrayList<Uri>()  // 이미지 uri
     private var authToken: String ?= null // 로그인 토큰
     private var userIdentity: String ?= null // 로그인된 사용자 아이디
     private var isMe: Boolean ?= false  // 로그인된 사용자와 작성자가 같은지 여부
@@ -49,12 +53,17 @@ class ReportDetailActivity : AppCompatActivity() {
         userIdentity = sharedPreferences.getString("user_identify", null)
 
         recyclerView = binding.commentRecyclerView
+        imgRecyclerView = binding.imgRecyclerView
 
         val layoutManager = LinearLayoutManager(this)
         binding.commentRecyclerView.layoutManager = layoutManager
+        binding.imgRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         commentAdapter = CommentAdapter(emptyList()) // 초기에 빈 목록으로 어댑터 설정
         recyclerView.adapter = commentAdapter // 리사이클러뷰에 어댑터 설정
+
+        imgAdapter = MultiImageAdapter(uriList, this)
+        binding.imgRecyclerView.adapter = imgAdapter
 
         if (reportId != -1) {
             ReportManager.getReportData(
