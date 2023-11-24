@@ -38,6 +38,7 @@ data class Festival(
     val content: String,
     val image: String,
     val location: String,
+    val region: String,
     val startDay: String,
     val endDay: String,
     val state: Int,
@@ -50,9 +51,9 @@ data class Event(
     val content: String,
     val image: String,
     val location: String,
+    val region: String,
     val rule: String,
     val register: String,
-    val ing: Int,
     val startDay: String,
     val endDay: String,
     val resultDay: String,
@@ -74,6 +75,7 @@ data class BoardData(
     val createdAt: String,
     val count: Int,
     val nickname: String,
+    val userimage: String,
     val address: String,
     val festivalId: Int,
     val image: String
@@ -89,6 +91,7 @@ data class CommentListResponse(
     val commentId: Int,
     val nickname: String,
     val address: String,
+    val userimage: String,
     val partnerId: Int,
     val content: String,
     val createdAt: String,
@@ -114,6 +117,7 @@ data class Report(
 data class ReportData(
     val reportId: Int,
     val nickname: String,
+    val userimage: String,
     val address: String,
     val title: String,
     val content: String,
@@ -121,6 +125,21 @@ data class ReportData(
     val done: Boolean,
     val image: String,
     val festivalId: Int
+)
+
+// 아이디어 작성
+data class Idea(
+    val title: String,
+    val content: String
+)
+
+data class IdeaData(
+    val createdAt: String,
+    val ideaId: Int,
+    val image: String,
+    val title: String,
+    val user: User,
+    val content: String
 )
 
 data class Main(

@@ -111,6 +111,7 @@
                 android:src="@drawable/camera_icon" />
 
             <TextView
+                android:id="@+id/add_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사진 첨부 > "

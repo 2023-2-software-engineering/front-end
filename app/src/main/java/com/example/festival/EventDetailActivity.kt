@@ -38,7 +38,7 @@ class EventDetailActivity : AppCompatActivity() {
                     binding.eventText.text = eventDetail.content
                     binding.eventStart.text = eventDetail.startDay
                     binding.eventEnd.text = eventDetail.endDay
-                    binding.eventRegister.text = eventDetail.register
+                    binding.eventRegister.text = eventDetail.rule
                     binding.viewCount.text = "${eventDetail.view} 회"
 
                     Glide.with(this)

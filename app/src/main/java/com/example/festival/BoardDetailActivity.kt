@@ -9,10 +9,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.festival.databinding.ActivityBoardDetailBinding
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
@@ -23,10 +25,11 @@ class BoardDetailActivity : AppCompatActivity() {
     private var boardId = -1 // 현재 게시판 ID를 담는 변수
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var commentRecyclerView: RecyclerView
-    private lateinit var imgAdapter: MultiImageAdapter
+    private lateinit var imgAdapter: MultiImageLoadAdapter
     private lateinit var imgRecyclerView: RecyclerView
     private var authToken: String ?= null // 로그인 토큰
-    private var uriList = ArrayList<Uri>()  // 이미지 uri
+    private lateinit var imageList: List<String>
+    private var festivalId: Int ?= -1
 
     companion object {
         lateinit var boardModActivityResult: ActivityResultLauncher<Intent>
@@ -57,7 +60,7 @@ class BoardDetailActivity : AppCompatActivity() {
         commentAdapter = CommentAdapter(emptyList()) // 초기에 빈 목록으로 어댑터 설정
         commentRecyclerView.adapter = commentAdapter // 리사이클러뷰에 어댑터 설정
 
-        imgAdapter = MultiImageAdapter(uriList, this)
+        imgAdapter = MultiImageLoadAdapter(emptyList(), this)
         binding.imgRecyclerView.adapter = imgAdapter
 
         if (boardId != -1) {
@@ -69,6 +72,20 @@ class BoardDetailActivity : AppCompatActivity() {
                     binding.boardWriter.text = boardDetail.nickname
                     binding.boardAddress.text = boardDetail.address
                     binding.commentNum.text = "${boardDetail.count}"
+
+                    Glide.with(this)
+                        .load(boardDetail.userimage)
+                        .placeholder(R.drawable.user_basic) // 플레이스홀더 이미지 리소스
+                        .error(R.drawable.user_basic) // 에러 이미지 리소스
+                        .into(binding.writerImg)
+
+                    val imageString = boardDetail.image
+                    imageList = extractImage(imageString)
+
+                    Log.d("my log", "반환된 이미지" + imageList)
+
+                    imgAdapter = MultiImageLoadAdapter(imageList, applicationContext)
+                    binding.imgRecyclerView.adapter = imgAdapter
 
                     val parts = boardDetail.createdAt.split("T")
                     if (parts.size == 2) {
@@ -97,6 +114,17 @@ class BoardDetailActivity : AppCompatActivity() {
                         // 올바른 형식이 아닐 경우 오류 처리
                         Log.e("Error", "Invalid timestamp format")
                     }
+
+                    FestivalManager.getFestivalData(
+                        boardDetail.festivalId,
+                        onSuccess = { festival ->
+                            binding.boardFestival.text = festival.title
+                            festivalId = festival.festivalId
+                        },
+                        onError = { throwable ->
+                            Log.e("서버 테스트3", "오류: $throwable")
+                        }
+                    )
                 },
                 onError = { throwable ->
                     Log.e("서버 테스트3", "오류: $throwable")
@@ -115,9 +143,23 @@ class BoardDetailActivity : AppCompatActivity() {
                     if (isSuccess) {
                         binding.addCommentText.text.clear() // 댓글 전송 후 텍스트 초기화
 
+                        hideKeyboard()
                         loadCommentList() // 댓글 리스트 업데이트
                     }
                 }
+            }
+        }
+
+        binding.root.setOnClickListener {
+            // 화면의 다른 부분을 클릭하면 EditText의 포커스를 해제하고 키보드를 내림
+            hideKeyboard()
+        }
+
+        binding.boardFestival.setOnClickListener {
+            if (festivalId != -1) {
+                val intent = Intent(this, FestivalDetailActivity::class.java)
+                intent.putExtra("festivalId", festivalId)
+                startActivity(intent)
             }
         }
 
@@ -181,6 +223,26 @@ class BoardDetailActivity : AppCompatActivity() {
                 Log.e("서버 테스트3", "오류: $throwable")
             }
         )
+    }
+
+    private fun extractImage(imageString: String): List<String> {
+        // 문자열에서 "[https://"로 시작하고 "," 또는 "]" 전까지의 부분을 추출
+        val startIndex = imageString.indexOf("[")
+        val endIndex = imageString.indexOf("]", startIndex)
+
+        if (startIndex != -1 && endIndex != -1) {
+            val substring = imageString.substring(startIndex, endIndex)
+            // "["와  "]"를 제거하고 공백 기준으로 분리하여 리스트로 변환
+            return substring.replace("[", "").split(",").map { it.trim() }
+        }
+
+        return emptyList()
+    }
+
+    private fun hideKeyboard() {
+        binding.addCommentText.clearFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.festival.ReportDetailActivity.Companion.reportModActivityResult
 import com.example.festival.databinding.ActivityReportDetailBinding
 import java.sql.Timestamp
@@ -25,9 +26,9 @@ class ReportDetailActivity : AppCompatActivity() {
     private var reportId = -1 // 현재 신고 ID를 담는 변수
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var imgAdapter: MultiImageAdapter
+    private lateinit var imgAdapter: MultiImageLoadAdapter
     private lateinit var imgRecyclerView: RecyclerView
-    private var uriList = ArrayList<Uri>()  // 이미지 uri
+    private lateinit var imageList: List<String>
     private var authToken: String ?= null // 로그인 토큰
     private var userIdentity: String ?= null // 로그인된 사용자 아이디
     private var isMe: Boolean ?= false  // 로그인된 사용자와 작성자가 같은지 여부
@@ -62,7 +63,9 @@ class ReportDetailActivity : AppCompatActivity() {
         commentAdapter = CommentAdapter(emptyList()) // 초기에 빈 목록으로 어댑터 설정
         recyclerView.adapter = commentAdapter // 리사이클러뷰에 어댑터 설정
 
-        imgAdapter = MultiImageAdapter(uriList, this)
+        binding.imgRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        imgAdapter = MultiImageLoadAdapter(emptyList(), this)
         binding.imgRecyclerView.adapter = imgAdapter
 
         if (reportId != -1) {
@@ -73,6 +76,14 @@ class ReportDetailActivity : AppCompatActivity() {
                     binding.reportContent.text = reportDetail.content
                     binding.reportWriter.text = reportDetail.nickname
                     binding.reportAddress.text = reportDetail.address
+
+                    val imageString = reportDetail.image
+                    imageList = extractImage(imageString)
+
+                    Log.d("my log", "반환된 이미지" + imageList)
+
+                    imgAdapter = MultiImageLoadAdapter(imageList, applicationContext)
+                    binding.imgRecyclerView.adapter = imgAdapter
 
                     if (reportDetail.nickname == userIdentity) {
                         isMe = true
@@ -145,6 +156,12 @@ class ReportDetailActivity : AppCompatActivity() {
                             binding.reportDone.visibility = View.VISIBLE
                         }
 
+                        Glide.with(this)
+                            .load(reportDetail.userimage)
+                            .placeholder(R.drawable.user_basic) // 플레이스홀더 이미지 리소스
+                            .error(R.drawable.user_basic) // 에러 이미지 리소스
+                            .into(binding.writerImg)
+
                         val parts = reportDetail.createdAt.split("T")
                         if (parts.size == 2) {
                             val datePart = parts[0]
@@ -179,6 +196,20 @@ class ReportDetailActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    private fun extractImage(imageString: String): List<String> {
+        // 문자열에서 "[https://"로 시작하고 "," 또는 "]" 전까지의 부분을 추출
+        val startIndex = imageString.indexOf("[")
+        val endIndex = imageString.indexOf("]", startIndex)
+
+        if (startIndex != -1 && endIndex != -1) {
+            val substring = imageString.substring(startIndex, endIndex)
+            // "["와  "]"를 제거하고 공백 기준으로 분리하여 리스트로 변환
+            return substring.replace("[", "").split(",").map { it.trim() }
+        }
+
+        return emptyList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

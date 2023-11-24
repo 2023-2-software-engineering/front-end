@@ -4,8 +4,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,11 +39,18 @@ class CommentAdapter(private var comments: List<CommentListResponse>) : Recycler
         private val userAddressTextView: TextView = itemView.findViewById(R.id.comment_address)
         private val commentTextView: TextView = itemView.findViewById(R.id.comment_text)
         private val createdTextView: TextView = itemView.findViewById(R.id.comment_date)
+        private val writerImage: ImageView = itemView.findViewById(R.id.writer_img)
 
         fun bind(comment: CommentListResponse) {
             usernameTextView.text = comment.nickname
             userAddressTextView.text = comment.address
             commentTextView.text = comment.content
+
+            Glide.with(itemView.context)
+                .load(comment.userimage)
+                .placeholder(R.drawable.user_basic) // 플레이스홀더 이미지 리소스
+                .error(R.drawable.user_basic) // 에러 이미지 리소스
+                .into(writerImage)
 
             // 댓글 날짜 시간도 출력 수정 필요(현재 날짜만 보임)
             val parts = comment.createdAt.split("T")

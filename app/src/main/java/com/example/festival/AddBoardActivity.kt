@@ -36,15 +36,6 @@ class AddBoardActivity : AppCompatActivity() {
     private var festivalId: Int ?= -1
     private var festivalTitle: String ?= null
 
-//    private val awsAccessKey = ""
-//    private val awsSecretKey = ""
-//    private val awsCredentials = BasicAWSCredentials(awsAccessKey, awsSecretKey)
-//    private lateinit var transferUtility: TransferUtility
-//    val s3Client = AmazonS3Client(
-//        awsCredentials,
-//        com.amazonaws.regions.Region.getRegion(Regions.AP_NORTHEAST_2)
-//    )
-
     companion object {
         lateinit var selectFestivalActivityResult: ActivityResultLauncher<Intent>
     }
@@ -190,44 +181,48 @@ class AddBoardActivity : AppCompatActivity() {
     private fun saveBoardToServer() {
         val title = binding.boardAddTitle.text.toString()
         val content = binding.boardAddContent.text.toString()
-        var imagePart: MultipartBody.Part ?= null
+        var imageParts: List<MultipartBody.Part> ?= null
 
         val board = Board(title, content, festivalId!!)
         Log.d("my log", ""+board)
 
         if (authToken != null) {
             if (uriList.isNotEmpty()) {
-                val file = File(getRealPathFromURI(uriList[0]))
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+                imageParts = uriList.map { uri ->
+                    val file = File(getRealPathFromURI(uri))
+                    val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                    MultipartBody.Part.createFormData("image", file.name, requestFile)
+                }
             } else {
                 // 이미지가 없는 경우 빈 이미지를 생성하여 포함
                 val emptyImageRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), "")
-                imagePart = MultipartBody.Part.createFormData("image", "", emptyImageRequestBody)
+                imageParts = listOf(MultipartBody.Part.createFormData("image", "", emptyImageRequestBody))
             }
-            sendBoardToServer(board, imagePart, authToken!!)
+            sendBoardToServer(board, imageParts, authToken!!)
         }
     }
 
     private fun modBoardToServer() {
         val title = binding.boardAddTitle.text.toString()
         val content = binding.boardAddContent.text.toString()
-        var imagePart: MultipartBody.Part ?= null
+        var imageParts: List<MultipartBody.Part> ?= null
 
         val board = Board(title, content, festivalId!!)
         Log.d("my log", ""+board)
 
         if (authToken != null) {
             if (uriList.isNotEmpty()) {
-                val file = File(getRealPathFromURI(uriList[0]))
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+                imageParts = uriList.map { uri ->
+                    val file = File(getRealPathFromURI(uri))
+                    val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                    MultipartBody.Part.createFormData("image", file.name, requestFile)
+                }
             } else {
                 // 이미지가 없는 경우 빈 이미지를 생성하여 포함
                 val emptyImageRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), "")
-                imagePart = MultipartBody.Part.createFormData("image", "", emptyImageRequestBody)
+                imageParts = listOf(MultipartBody.Part.createFormData("image", "", emptyImageRequestBody))
             }
-            sendModBoardToServer(boardId!!, board, imagePart, authToken!!)
+            sendModBoardToServer(boardId!!, board, imageParts, authToken!!)
 
             val resultIntent = Intent()
             setResult(RESULT_OK, resultIntent)

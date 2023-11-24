@@ -1,6 +1,7 @@
 package com.example.festival
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class HotAdapter(private var festivals: List<Festival>): RecyclerView.Adapter<Ho
     inner class HotViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val titleTextView: TextView = itemView.findViewById(R.id.title)
         private val likeTextView: TextView = itemView.findViewById(R.id.like_count)
+        private val ranking: TextView = itemView.findViewById(R.id.ranking)
 
         init {
             itemView.setOnClickListener {
@@ -45,7 +47,17 @@ class HotAdapter(private var festivals: List<Festival>): RecyclerView.Adapter<Ho
 
         fun bind(festivalList: Festival, position: Int) {
             titleTextView.text = festivalList.title
-            likeTextView.text = position.toString() // 순서 매기기
+            ranking.text = position.toString() // 순서 매기기
+
+            FestivalManager.getFestivalLike(
+                festivalList.festivalId,
+                onSuccess = { festivalLike ->
+                    likeTextView.text = "$festivalLike"
+                },
+                onError = { throwable ->
+                    Log.e("서버 테스트3", "오류: $throwable")
+                }
+            )
         }
 
     }
