@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
+    android:background="@color/light_mint"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -18,6 +19,7 @@
             android:gravity="center"
             android:scaleType="centerCrop"
             android:layout_marginRight="12dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="3dp"
             android:src="@drawable/festival_main" />
 
@@ -79,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="5dp"
             android:textSize="14dp"
             android:text="10월 4일" />
@@ -89,6 +92,6 @@
         android:layout_width="match_parent"
         android:layout_height="0.6dp"
         android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/white" />
 
 </LinearLayout>
