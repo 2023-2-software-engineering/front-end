@@ -10,6 +10,7 @@
         android:layout_width="360dp"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
+        app:cardBackgroundColor="@color/drak_mint"
         app:cardCornerRadius="30dp"
         android:layout_marginVertical="10dp"
         app:cardElevation="6dp" >
@@ -27,7 +28,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:textSize="25dp"
+                android:textSize="22dp"
+                android:textStyle="bold"
                 android:text="1"
                 android:textColor="@color/black" />
 
@@ -37,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginLeft="20dp"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:text="2023 청년 상인 축제"
                 android:textColor="@color/black" />
 

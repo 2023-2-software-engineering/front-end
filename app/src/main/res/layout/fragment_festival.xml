@@ -124,6 +124,7 @@
         android:id="@+id/festivalRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/info_box"
         android:padding="8dp" />
 
 </LinearLayout>

@@ -12,6 +12,7 @@
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/drak_mint"
         app:layout_constraintTop_toTopOf="parent" >
 
         <LinearLayout
@@ -24,6 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="조회수: "/>
 
             <TextView
@@ -31,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
+                android:textStyle="bold"
                 android:text="0회" />
 
             <TextView
@@ -67,6 +70,7 @@
             android:layout_height="wrap_content"
             android:text="이벤트명"
             android:textColor="#191919"
+            android:textStyle="bold"
             android:gravity="center_horizontal"
             android:textSize="30dp" />
 
@@ -81,6 +85,7 @@
             android:id="@+id/event_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="성동구 청년상인이 주도하여 문화예술과 먹거리가 공존하는 축제를 개최하오니 관심있는 분들의 많은 참여 바랍니다."
             android:textColor="#191919"
             android:gravity="center_horizontal"
@@ -90,6 +95,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -117,6 +124,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -157,6 +166,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -184,6 +195,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -214,7 +227,7 @@
             android:id="@+id/event_img"
             android:layout_width="350dp"
             android:layout_height="400dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center" />
 
