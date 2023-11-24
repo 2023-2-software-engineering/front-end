@@ -39,7 +39,7 @@ class FestivalDetailActivity : AppCompatActivity() {
                 onSuccess = { festivalDetail ->
                     binding.festivalTitle.text = festivalDetail.title
                     binding.festivalText.text = festivalDetail.content
-                    //binding.festivalDate.text = festivalDetail.date.toString()
+                    binding.festivalDate.text = "${festivalDetail.startDay} ~ ${festivalDetail.endDay}"
                     binding.festivalPlace.text = festivalDetail.location
                     binding.viewCount.text = "${festivalDetail.view} 회"
 

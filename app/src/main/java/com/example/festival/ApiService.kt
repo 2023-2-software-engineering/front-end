@@ -205,3 +205,17 @@ interface IdeaDetailService {
     @GET("idea/detail")
     fun getIdea(@Query("ideaId") ideaId: Int): Call<IdeaData>
 }
+
+interface SearchFestivalService {
+    @GET("festival/search")
+    fun getSearchFestival(@Query(value = "state", encoded = false) state: Int?,
+                          @Query(value = "region") region: String?,
+                          @Query(value = "keyword") keyword: String?): Call<List<Festival>>
+}
+
+interface SearchEventService {
+    @GET("event/search")
+    fun getSearchEvent(@Query(value = "state", encoded = false) state: Int?,
+                       @Query(value = "region") region: String?,
+                       @Query(value = "keyword") keyword: String?): Call<List<Event>>
+}

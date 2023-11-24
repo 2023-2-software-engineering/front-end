@@ -76,9 +76,19 @@ class EventAdapter(private var events: List<Event>): RecyclerView.Adapter<EventA
                 .error(R.drawable.festival_main) // 에러 이미지 리소스
                 .into(imageView)
 
-            if (eventList.ing == 0) {
-                ingTextView.visibility = View.GONE
-                closeTextView.visibility = View.VISIBLE
+            when (eventList.state) {
+                0 -> {
+                    ingTextView.visibility = View.GONE
+                    closeTextView.visibility = View.VISIBLE
+                }
+                1 -> {
+                    ingTextView.visibility = View.VISIBLE
+                    closeTextView.visibility = View.GONE
+                }
+                else -> {
+                    ingTextView.visibility = View.GONE
+                    closeTextView.visibility = View.GONE
+                }
             }
         }
 

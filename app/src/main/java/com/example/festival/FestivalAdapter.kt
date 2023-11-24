@@ -40,6 +40,8 @@ class FestivalAdapter(private var festivals: List<Festival>): RecyclerView.Adapt
         private val placeTextView: TextView = itemView.findViewById(R.id.festival_place)
         private val imageView: ImageView = itemView.findViewById(R.id.main_img)
         private val likeTextView: TextView = itemView.findViewById(R.id.festival_like_img)
+        private val ingTextView: TextView = itemView.findViewById(R.id.festival_ing)
+        private val closeTextView: TextView = itemView.findViewById(R.id.festival_close)
 
         init {
             itemView.setOnClickListener {
@@ -75,6 +77,21 @@ class FestivalAdapter(private var festivals: List<Festival>): RecyclerView.Adapt
                 .placeholder(R.drawable.festival_main) // 플레이스홀더 이미지 리소스
                 .error(R.drawable.festival_main) // 에러 이미지 리소스
                 .into(imageView)
+
+            when (festivalList.state) {
+                0 -> {
+                    ingTextView.visibility = View.GONE
+                    closeTextView.visibility = View.VISIBLE
+                }
+                1 -> {
+                    ingTextView.visibility = View.VISIBLE
+                    closeTextView.visibility = View.GONE
+                }
+                else -> {
+                    ingTextView.visibility = View.GONE
+                    closeTextView.visibility = View.GONE
+                }
+            }
         }
 
     }

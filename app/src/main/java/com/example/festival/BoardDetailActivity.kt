@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -142,10 +143,16 @@ class BoardDetailActivity : AppCompatActivity() {
                     if (isSuccess) {
                         binding.addCommentText.text.clear() // 댓글 전송 후 텍스트 초기화
 
+                        hideKeyboard()
                         loadCommentList() // 댓글 리스트 업데이트
                     }
                 }
             }
+        }
+
+        binding.root.setOnClickListener {
+            // 화면의 다른 부분을 클릭하면 EditText의 포커스를 해제하고 키보드를 내림
+            hideKeyboard()
         }
 
         binding.boardFestival.setOnClickListener {
@@ -230,6 +237,12 @@ class BoardDetailActivity : AppCompatActivity() {
         }
 
         return emptyList()
+    }
+
+    private fun hideKeyboard() {
+        binding.addCommentText.clearFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
