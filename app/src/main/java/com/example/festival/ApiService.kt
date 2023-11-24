@@ -112,7 +112,7 @@ interface EventViewTopService {
 interface BoardService {  // 게시판 작성
     @Multipart
     @POST("partner") // 서버 주소/partner 으로 POST
-    fun sendBoard(@Part("partner") board: Board, @Part image: MultipartBody.Part?,
+    fun sendBoard(@Part("partner") board: Board, @Part image: List<MultipartBody.Part>?,
         @Header("Authorization") authToken: String): Call<Void>
 }
 
@@ -130,7 +130,7 @@ interface ModBoardService {  // 게시판 수정
     @Multipart
     @PATCH("partner/{partnerId}")
     fun sendModBoard(@Path("partnerId") boardId: Int,
-                     @Part("partner") board: Board, @Part image: MultipartBody.Part?,
+                     @Part("partner") board: Board, @Part image: List<MultipartBody.Part>?,
                      @Header("Authorization") authToken: String): Call<Void>
 }
 
@@ -156,7 +156,7 @@ interface ReportService {
     @Multipart
     @POST("report")
     fun sendReport(@Header("Authorization") authToken: String,
-                @Part("report") report: Report, @Part image: MultipartBody.Part?,
+                @Part("report") report: Report, @Part image: List<MultipartBody.Part>?,
     ): Call<Void>
 }
 
@@ -174,7 +174,7 @@ interface ModReportService {  // 신고 수정
     @Multipart
     @PATCH("report/{reportId}")
     fun sendModReport(@Path("reportId") reportId: Int,
-                      @Part("report") report: Report, @Part image: MultipartBody.Part,
+                      @Part("report") report: Report, @Part image: List<MultipartBody.Part>?,
                      @Header("Authorization") authToken: String): Call<Void>
 }
 
@@ -186,4 +186,22 @@ interface DeleteReportService {  // 신고 삭제
 interface DoneReportService { // 신고 처리
     @PATCH("report/{reportId}/done")
     fun doneReport(@Path("reportId") reportId: Int): Call<Void>
+}
+
+interface IdeaService {
+    @Multipart
+    @POST("idea")
+    fun sendIdea(@Header("Authorization") authToken: String,
+                   @Part("idea") idea: Idea, @Part image: List<MultipartBody.Part>?,
+    ): Call<Void>
+}
+
+interface IdeaListService {
+    @GET("idea")
+    fun getIdeaList(): Call<List<IdeaData>>
+}
+
+interface IdeaDetailService {
+    @GET("idea/detail")
+    fun getIdea(@Query("ideaId") ideaId: Int): Call<IdeaData>
 }

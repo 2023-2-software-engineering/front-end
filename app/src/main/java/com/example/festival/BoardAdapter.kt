@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,6 +40,7 @@ class BoardAdapter(private var boards: List<BoardData>) : RecyclerView.Adapter<B
         private val writerTextView: TextView = itemView.findViewById(R.id.board_writer)
         private val createdTextView: TextView = itemView.findViewById(R.id.board_date)
         private val commentCount: TextView = itemView.findViewById(R.id.comment_num)
+        private val festivalImg: ImageView = itemView.findViewById(R.id.festival_img)
 
         init {
             itemView.setOnClickListener {
@@ -53,6 +56,20 @@ class BoardAdapter(private var boards: List<BoardData>) : RecyclerView.Adapter<B
             titleTextView.text = boardList.title
             writerTextView.text = boardList.nickname
             commentCount.text = "${boardList.count}"
+
+            FestivalManager.getFestivalData(
+                boardList.festivalId,
+                onSuccess = { festival ->
+                    Glide.with(itemView.context)
+                        .load(festival.image)
+                        .placeholder(R.drawable.festival_main) // 플레이스홀더 이미지 리소스
+                        .error(R.drawable.festival_main) // 에러 이미지 리소스
+                        .into(festivalImg)
+                },
+                onError = { throwable ->
+                    Log.e("서버 테스트3", "오류: $throwable")
+                }
+            )
 
             val parts = boardList.createdAt.split("T")
 

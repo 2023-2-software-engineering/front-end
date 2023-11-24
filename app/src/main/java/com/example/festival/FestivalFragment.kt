@@ -1,5 +1,6 @@
 package com.example.festival
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ class FestivalFragment : Fragment() {
     private lateinit var festivalAdapter: FestivalAdapter
     private lateinit var eventAdapter: EventAdapter
     private lateinit var recyclerView: RecyclerView
+    private var authToken: String ?= null // 로그인 토큰
     private var searchWord: String ?= null // 검색어
     private var searchPlace: String ?= "모든 지역"
     private var searchIng: String ?= "진행예정"
@@ -97,6 +99,25 @@ class FestivalFragment : Fragment() {
                     binding.searchDate.text = ing
                     searchIng = ing
 
+                    if (ing == "전체") {
+                        if (searchPlace == "모든 지역") {
+
+                        } else {
+
+                        }
+                    } else if (ing == "진행중") {
+                        if (searchPlace == "모든 지역") {
+
+                        } else {
+
+                        }
+                    } else { // 진행 완료
+                        if (searchPlace == "모든 지역") {
+
+                        } else {
+
+                        }
+                    }
                 }
             })
             selectIngDialog.show(childFragmentManager, "select_ing_dialog")
@@ -117,11 +138,21 @@ class FestivalFragment : Fragment() {
 //        )
     }
 
+    private fun searchFestival() {
+
+    }
+
     // 서버에서 페스티벌 리스트 불러오기
     private fun loadFestivalList() {
+        val sharedPreferences = requireContext().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+
         FestivalManager.getFestivalListData(
             onSuccess = { festivalListResponse ->
                 val festival = festivalListResponse.map { it }
+                // 어댑터에 authToken 전달
+                festivalAdapter.authToken = authToken
+
                 festivalAdapter.updateData(festival)
             },
             onError = { throwable ->
@@ -131,9 +162,15 @@ class FestivalFragment : Fragment() {
     }
 
     private fun loadEventList() {
+        val sharedPreferences = requireContext().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+
         EventManager.getEventListData(
             onSuccess = { eventListResponse ->
                 val event = eventListResponse.map { it }
+                // 어댑터에 authToken 전달
+                eventAdapter.authToken = authToken
+
                 eventAdapter.updateData(event)
             },
             onError = { throwable ->

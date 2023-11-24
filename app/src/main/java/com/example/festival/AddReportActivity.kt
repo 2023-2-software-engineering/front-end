@@ -178,44 +178,48 @@ class AddReportActivity : AppCompatActivity() {
     private fun saveReportToServer() {
         val title = binding.reportAddTitle.text.toString()
         val content = binding.reportAddContent.text.toString()
-        var imagePart: MultipartBody.Part ?= null
+        var imageParts: List<MultipartBody.Part> ?= null
 
         val report = Report(title, content, festivalId!!)
         Log.d("my log", "" + report)
 
         if (authToken != null) {
             if (uriList.isNotEmpty()) {
-                val file = File(getRealPathFromURI(uriList[0]))
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+                imageParts = uriList.map { uri ->
+                    val file = File(getRealPathFromURI(uri))
+                    val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                    MultipartBody.Part.createFormData("image", file.name, requestFile)
+                }
             } else {
                 // 이미지가 없는 경우 빈 이미지를 생성하여 포함
                 val emptyImageRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), "")
-                imagePart = MultipartBody.Part.createFormData("image", "", emptyImageRequestBody)
+                imageParts = listOf(MultipartBody.Part.createFormData("image", "", emptyImageRequestBody))
             }
-            ReportManager.sendReportToServer(authToken!!, report, imagePart)
+            ReportManager.sendReportToServer(authToken!!, report, imageParts)
         }
     }
 
     private fun modReportToServer() {
         val title = binding.reportAddTitle.text.toString()
         val content = binding.reportAddContent.text.toString()
-        var imagePart: MultipartBody.Part ?= null
+        var imageParts: List<MultipartBody.Part> ?= null
 
         val report = Report(title, content, festivalId!!)
         Log.d("my log", ""+report)
 
         if (authToken != null) {
             if (uriList.isNotEmpty()) {
-                val file = File(getRealPathFromURI(uriList[0]))
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
+                imageParts = uriList.map { uri ->
+                    val file = File(getRealPathFromURI(uri))
+                    val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                    MultipartBody.Part.createFormData("image", file.name, requestFile)
+                }
             } else {
                 // 이미지가 없는 경우 빈 이미지를 생성하여 포함
                 val emptyImageRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), "")
-                imagePart = MultipartBody.Part.createFormData("image", "", emptyImageRequestBody)
+                imageParts = listOf(MultipartBody.Part.createFormData("image", "", emptyImageRequestBody))
             }
-            ReportManager.sendModReportToServer(reportId!!, report, imagePart, authToken!!)
+            ReportManager.sendModReportToServer(reportId!!, report, imageParts, authToken!!)
 
             val resultIntent = Intent()
             setResult(Activity.RESULT_OK, resultIntent)

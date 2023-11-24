@@ -502,7 +502,7 @@ object BoardManager {
         })
     }
 
-    fun sendBoardToServer(board: Board, image: MultipartBody.Part?, authToken: String) {  // 게시판 새로 추가
+    fun sendBoardToServer(board: Board, image: List<MultipartBody.Part>?, authToken: String) {  // 게시판 새로 추가
         val apiService = MyApplication().boardService
         val call = apiService.sendBoard(board, image, authToken)
         call.enqueue(object : Callback<Void> {
@@ -521,7 +521,7 @@ object BoardManager {
         })
     }
 
-    fun sendModBoardToServer(boardId: Int, board: Board, image: MultipartBody.Part?, authToken: String) {  // 게시판 수정
+    fun sendModBoardToServer(boardId: Int, board: Board, image: List<MultipartBody.Part>?, authToken: String) {  // 게시판 수정
         val apiService = MyApplication().modBoardService
         val call = apiService.sendModBoard(boardId, board, image, authToken)
         call.enqueue(object : Callback<Void> {
@@ -659,7 +659,7 @@ object ReportManager {
         })
     }
 
-    fun sendReportToServer(authToken: String, report: Report, image: MultipartBody.Part?) {  // 신고 새로 추가
+    fun sendReportToServer(authToken: String, report: Report, image: List<MultipartBody.Part>?) {  // 신고 새로 추가
         val apiService = MyApplication().reportService
         val call = apiService.sendReport(authToken, report, image)
         call.enqueue(object : Callback<Void> {
@@ -678,7 +678,7 @@ object ReportManager {
         })
     }
 
-    fun sendModReportToServer(reportId: Int, report: Report, image: MultipartBody.Part, authToken: String) {  // 신고 수정
+    fun sendModReportToServer(reportId: Int, report: Report, image: List<MultipartBody.Part>?, authToken: String) {  // 신고 수정
         val apiService = MyApplication().modReportService
         val call = apiService.sendModReport(reportId, report, image, authToken)
         call.enqueue(object : Callback<Void> {
@@ -732,6 +732,75 @@ object ReportManager {
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+}
+
+object IdeaManager {
+    fun sendIdeaToServer(authToken: String, idea: Idea, image: List<MultipartBody.Part>?) {
+        val apiService = MyApplication().ideaService
+        val call = apiService.sendIdea(authToken, idea, image)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("서버 테스트", "추가 성공")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun getIdeaListData(onSuccess: (List<IdeaData>) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().ideaListService
+        val call = apiService.getIdeaList()
+
+        call.enqueue(object : Callback<List<IdeaData>> {
+            override fun onResponse(call: Call<List<IdeaData>>, response: Response<List<IdeaData>>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<IdeaData>>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun getIdeaData(ideaId: Int, onSuccess: (IdeaData) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().ideaDetailService
+        val call = apiService.getIdea(ideaId)
+
+        call.enqueue(object : Callback<IdeaData> {
+            override fun onResponse(call: Call<IdeaData>, response: Response<IdeaData>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<IdeaData>, t: Throwable) {
                 Log.e("서버 테스트", "오류2: ${t.message}")
             }
         })

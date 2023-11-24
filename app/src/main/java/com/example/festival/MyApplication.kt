@@ -64,4 +64,8 @@ class MyApplication {
     val modReportService = retrofit.create(ModReportService::class.java)
     val deleteReportService = retrofit.create(DeleteReportService::class.java)
     val doneReportService = retrofit.create(DoneReportService::class.java)
+
+    val ideaService = retrofit.create(IdeaService::class.java)
+    val ideaListService = retrofit.create(IdeaListService::class.java)
+    val ideaDetailService = retrofit.create(IdeaDetailService::class.java)
 }
