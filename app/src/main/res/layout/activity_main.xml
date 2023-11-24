@@ -22,7 +22,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:src="@drawable/festival_logo1"/>
+                android:src="@drawable/rmbg_logo1_gray"/>
 
         </androidx.appcompat.widget.Toolbar>
 
