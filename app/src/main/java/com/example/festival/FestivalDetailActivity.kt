@@ -24,8 +24,8 @@ class FestivalDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "축제"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)  //툴바에 뒤로 가기 버튼 추가
+        supportActionBar?.title = ""
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)  //툴바에 뒤로 가기 버튼 추가
 
         festivalId = intent.getIntExtra("festivalId", -1)
 
@@ -118,6 +118,11 @@ class FestivalDetailActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // 툴바 뒤로 버튼 클릭 시
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun updateLikeUI() {
@@ -125,16 +130,6 @@ class FestivalDetailActivity : AppCompatActivity() {
             binding.festivalLikeImg.text = "♥ "
         } else { //로그인 한 유저가 좋아요를 누른 상태가 아니라면
             binding.festivalLikeImg.text = "♡ "
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> { // 뒤로 가기 버튼 클릭 시
-                finish() // 현재 액티비티 종료
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
         }
     }
 }

@@ -4,12 +4,15 @@
     <!-- Default -->
     <item>
         <shape>
-            <solid android:color="#959595" />
+            <solid android:color="#D2E9E9" />
             <stroke
                 android:width="2dp"
-                android:color="#959595" />
+                android:color="#D2E9E9" />
             <corners
-                android:radius="20dp" />
+                android:topLeftRadius="15dp"
+                android:topRightRadius="15dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
             <padding
                 android:left="5dp"
                 android:top="1dp"

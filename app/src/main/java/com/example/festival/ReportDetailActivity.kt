@@ -43,7 +43,7 @@ class ReportDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = ""
+        supportActionBar?.title = "불량 부스 신고"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)  //툴바에 뒤로 가기 버튼 추가
 
         reportId = intent.getIntExtra("reportId", -1)
@@ -72,7 +72,8 @@ class ReportDetailActivity : AppCompatActivity() {
             ReportManager.getReportData(
                 reportId,
                 onSuccess = { reportDetail ->
-                    supportActionBar?.title = reportDetail.title
+                    //supportActionBar?.title = reportDetail.title
+                    binding.reportTitle.text = reportDetail.title
                     binding.reportContent.text = reportDetail.content
                     binding.reportWriter.text = reportDetail.nickname
                     binding.reportAddress.text = reportDetail.address

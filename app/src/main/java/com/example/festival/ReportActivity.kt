@@ -21,7 +21,7 @@ class ReportActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "축제 이상 부스 신고"
+        supportActionBar?.title = "불량 부스 신고"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)  //툴바에 뒤로 가기 버튼 추가
 
         recyclerView = binding.reportRecyclerView // 리사이클러뷰 초기화

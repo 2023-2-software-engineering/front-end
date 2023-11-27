@@ -75,7 +75,7 @@ class FestivalFragment : Fragment() {
             loadEventList()
 
             binding.festivalBtn.setBackgroundResource(android.R.color.white)
-            binding.eventBtn.setBackgroundResource(R.drawable.stroke_button)
+            binding.eventBtn.setBackgroundResource(R.drawable.select_button)
             type = 0
         }
 
@@ -84,7 +84,7 @@ class FestivalFragment : Fragment() {
             loadFestivalList()
 
             binding.eventBtn.setBackgroundResource(android.R.color.white)
-            binding.festivalBtn.setBackgroundResource(R.drawable.stroke_button)
+            binding.festivalBtn.setBackgroundResource(R.drawable.select_button)
             type = 1
         }
 

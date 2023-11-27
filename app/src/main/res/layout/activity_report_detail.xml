@@ -67,22 +67,26 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/report_report_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:textSize="14dp"
-                android:text="신고하기" />
-
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/report_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="신고 제목" />
 
         <TextView
             android:id="@+id/report_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
             android:textSize="16dp"
             android:textColor="@color/black"
             android:text="신고 내용" />

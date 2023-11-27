@@ -15,6 +15,20 @@
         android:background="@color/drak_mint"
         app:layout_constraintTop_toTopOf="parent" >
 
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/backward_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="축제"
+            android:textColor="#1E1E1E"
+            android:textSize="16dp" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

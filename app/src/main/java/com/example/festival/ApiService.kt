@@ -219,3 +219,13 @@ interface SearchEventService {
                        @Query(value = "region") region: String?,
                        @Query(value = "keyword") keyword: String?): Call<List<Event>>
 }
+
+interface MyFestivalListService {
+    @GET("festival_like/list")
+    fun getMyFestival(@Header("Authorization") authToken: String): Call<List<Festival>>
+}
+
+interface MyEventListService {
+    @GET("event_like/list")
+    fun getMyEvent(@Header("Authorization") authToken: String): Call<List<Event>>
+}

@@ -21,8 +21,8 @@ class EventDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "이벤트"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)  //툴바에 뒤로 가기 버튼 추가
+        supportActionBar?.title = ""
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)  //툴바에 뒤로 가기 버튼 추가
 
         eventId = intent.getIntExtra("eventId", -1)
 
@@ -38,7 +38,8 @@ class EventDetailActivity : AppCompatActivity() {
                     binding.eventText.text = eventDetail.content
                     binding.eventStart.text = eventDetail.startDay
                     binding.eventEnd.text = eventDetail.endDay
-                    binding.eventRegister.text = eventDetail.rule
+                    binding.eventRegister.text = eventDetail.register
+                    binding.eventMain.text = eventDetail.rule
                     binding.viewCount.text = "${eventDetail.view} 회"
 
                     Glide.with(this)
@@ -116,6 +117,11 @@ class EventDetailActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // 툴바 뒤로 버튼 클릭 시
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun updateLikeUI() {
@@ -123,16 +129,6 @@ class EventDetailActivity : AppCompatActivity() {
             binding.eventLikeImg.text = "♥ "
         } else { //로그인 한 유저가 좋아요를 누른 상태가 아니라면
             binding.eventLikeImg.text = "♡ "
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> { // 뒤로 가기 버튼 클릭 시
-                finish() // 현재 액티비티 종료
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
         }
     }
 }
