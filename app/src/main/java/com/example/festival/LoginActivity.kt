@@ -5,8 +5,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import com.auth0.android.jwt.JWT
 import com.example.festival.databinding.ActivityLoginBinding
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
@@ -54,6 +56,11 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
+
+        binding.root.setOnClickListener {
+            // 화면의 다른 부분을 클릭하면 EditText의 포커스를 해제하고 키보드를 내림
+            hideKeyboard()
+        }
     }
 
     // 토큰을 저장하는 메서드
@@ -74,5 +81,12 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun hideKeyboard() {
+        binding.loginID.clearFocus()
+        binding.loginPW.clearFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }

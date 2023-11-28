@@ -68,141 +68,148 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <ScrollView
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:layout_width="0dp"
-        android:layout_height="0dp" >
-
-        <TextView
-            android:id="@+id/festival_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="축제명"
-            android:textColor="#191919"
-            android:textStyle="bold"
-            android:gravity="center_horizontal"
-            android:textSize="30dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.6dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp"
-            android:background="@android:color/black" />
-
-        <TextView
-            android:id="@+id/festival_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="성동구 청년상인이 주도하여 문화예술과 먹거리가 공존하는 축제를 개최하오니 관심있는 분들의 많은 참여 바랍니다."
-            android:textColor="#191919"
-            android:gravity="center_horizontal"
-            android:textSize="15dp" />
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
 
         <LinearLayout
+            android:orientation="vertical"
+            android:padding="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/festival_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="축제명"
+                android:textColor="#191919"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:textSize="30dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:background="#939393" />
+
+            <TextView
+                android:id="@+id/festival_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="성동구 청년상인이 주도하여 문화예술과 먹거리가 공존하는 축제를 개최하오니 관심있는 분들의 많은 참여 바랍니다."
+                android:textColor="#191919"
+                android:gravity="center_horizontal"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/check_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:textColor="#191919"
+                    android:textStyle="bold"
+                    android:text="행사일시:  " />
+
+                <TextView
+                    android:id="@+id/festival_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#191919"
+                    android:text="2023.10.7.(토) 12:00 ~ 17:00" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/check_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:textColor="#191919"
+                    android:textStyle="bold"
+                    android:text="행사장소:  " />
+
+                <TextView
+                    android:id="@+id/festival_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#191919"
+                    android:text="왕십리광장(북측)" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/check_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:textColor="#191919"
+                    android:textStyle="bold"
+                    android:text="입장료:  " />
+
+                <TextView
+                    android:id="@+id/festival_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#191919"
+                    android:text="무료" />
+
+            </LinearLayout>
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/check_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:textColor="#191919"
-                android:text="행사일시: " />
-
-            <TextView
-                android:id="@+id/festival_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#191919"
-                android:text="2023.10.7.(토) 12:00 ~ 17:00" />
+                android:id="@+id/festival_img"
+                android:layout_width="350dp"
+                android:layout_height="420dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:scaleType="centerCrop" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/check_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:textColor="#191919"
-                android:text="행사장소: " />
-
-            <TextView
-                android:id="@+id/festival_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#191919"
-                android:text="왕십리광장(북측)" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/check_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:textColor="#191919"
-                android:text="주요내용" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/festival_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="30dp"
-            android:textColor="#191919"
-            android:text="청년상인 판매존 ․ 먹거리존 ․ 체험존 운영
-청년 버스킹 공연, 성동형 공공배달앱 홍보(커피차) 등" />
-
-        <ImageView
-            android:id="@+id/festival_img"
-            android:layout_width="350dp"
-            android:layout_height="400dp"
-            android:layout_marginTop="15dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

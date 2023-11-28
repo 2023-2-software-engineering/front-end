@@ -51,6 +51,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="축제명"
+                        android:textStyle="bold"
                         android:textColor="#191919"
                         android:textSize="20dp" />
 
@@ -108,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:text="진행완료"
-                        android:textColor="#191919"
+                        android:textColor="#787878"
                         android:textSize="12dp" />
 
                 </LinearLayout>

@@ -32,6 +32,7 @@ class ReportDetailActivity : AppCompatActivity() {
     private var authToken: String ?= null // 로그인 토큰
     private var userIdentity: String ?= null // 로그인된 사용자 아이디
     private var isMe: Boolean ?= false  // 로그인된 사용자와 작성자가 같은지 여부
+    private var festivalId: Int ?= -1
 
     companion object {
         lateinit var reportModActivityResult: ActivityResultLauncher<Intent>
@@ -86,6 +87,12 @@ class ReportDetailActivity : AppCompatActivity() {
                     imgAdapter = MultiImageLoadAdapter(imageList, applicationContext)
                     binding.imgRecyclerView.adapter = imgAdapter
 
+                    Glide.with(this)
+                        .load(reportDetail.userimage)
+                        .placeholder(R.drawable.user_basic) // 플레이스홀더 이미지 리소스
+                        .error(R.drawable.user_basic) // 에러 이미지 리소스
+                        .into(binding.writerImg)
+
                     if (reportDetail.nickname == userIdentity) {
                         isMe = true
                     }
@@ -122,6 +129,27 @@ class ReportDetailActivity : AppCompatActivity() {
                         // 올바른 형식이 아닐 경우 오류 처리
                         Log.e("Error", "Invalid timestamp format")
                     }
+
+                    FestivalManager.getFestivalData(
+                        reportDetail.festivalId,
+                        onSuccess = { festival ->
+                            binding.reportFestival.text = festival.title
+                            festivalId = festival.festivalId
+                        },
+                        onError = { throwable ->
+                            Log.e("서버 테스트3", "오류: $throwable")
+                        }
+                    )
+
+                    val commentList = listOf(
+                        CommentListResponse(111, "관리자1", "",
+                        "", 1, "안녕하세요, 관리자입니다. " +
+                                    "\n확인 후, 조치완료하였습니다.", "2023-11-29 09:28:34"
+                        , emptyList())
+                    )
+
+                    commentAdapter = CommentAdapter(commentList) // 초기에 빈 목록으로 어댑터 설정
+                    recyclerView.adapter = commentAdapter
                 },
                 onError = { throwable ->
                     Log.e("서버 테스트3", "오류: $throwable")
@@ -134,6 +162,14 @@ class ReportDetailActivity : AppCompatActivity() {
 
             binding.reportYet.visibility = View.GONE
             binding.reportDone.visibility = View.VISIBLE
+        }
+
+        binding.reportFestival.setOnClickListener {
+            if (festivalId != -1) {
+                val intent = Intent(this, FestivalDetailActivity::class.java)
+                intent.putExtra("festivalId", festivalId)
+                startActivity(intent)
+            }
         }
 
         reportModActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

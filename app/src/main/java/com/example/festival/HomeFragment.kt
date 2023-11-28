@@ -81,9 +81,9 @@ class HomeFragment : Fragment() {
 
     private fun loadViewPager() {
         val mainList = listOf(
-            Main(1, "2023 청년 상인 축제", "festival_main"),
-            Main(2, "ㅎㅇ", "festival_main"),
-            Main(3, "3번째", "festival_main")
+            Main(8, "", "festival8"),
+            Main(9, "", "event9"),
+            Main(9, "", "festival9")
         )
 
         val adapter = MainTopicAdapter(childFragMang, lifecycle, mainList)
