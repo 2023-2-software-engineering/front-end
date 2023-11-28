@@ -71,4 +71,7 @@ class MyApplication {
 
     val searchFestivalService = retrofit.create(SearchFestivalService::class.java)
     val searchEventService = retrofit.create(SearchEventService::class.java)
+
+    val myFestivalService = retrofit.create(MyFestivalListService::class.java)
+    val myEventService = retrofit.create(MyEventListService::class.java)
 }

@@ -856,4 +856,53 @@ object SearchManager {
             }
         })
     }
+
+    fun getMyFestival(authToken: String, onSuccess: (List<Festival>) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().myFestivalService
+        val call = apiService.getMyFestival(authToken)
+        call.enqueue(object : Callback<List<Festival>> {
+            override fun onResponse(call: Call<List<Festival>>, response: Response<List<Festival>>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<Festival>>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun getMyEvent(authToken: String, onSuccess: (List<Event>) -> Unit, onError: (Throwable) -> Unit) {
+        val apiService = MyApplication().myEventService
+        val call = apiService.getMyEvent(authToken)
+        call.enqueue(object : Callback<List<Event>> {
+            override fun onResponse(
+                call: Call<List<Event>>,
+                response: Response<List<Event>>
+            ) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    apiResponse?.let {
+                        onSuccess(it)
+                    } ?: run {
+                        onError(Throwable("Response body is null"))
+                    }
+                } else {
+                    onError(Throwable("API call failed with response code: ${response.code()}"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<Event>>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
 }

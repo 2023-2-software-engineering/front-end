@@ -41,7 +41,7 @@ class BoardDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = ""
+        supportActionBar?.title = "게시판"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)  //툴바에 뒤로 가기 버튼 추가
 
         boardId = intent.getIntExtra("boardId", -1)
@@ -67,7 +67,8 @@ class BoardDetailActivity : AppCompatActivity() {
             BoardManager.getBoardData(
                 boardId,
                 onSuccess = { boardDetail ->
-                    supportActionBar?.title = boardDetail.title
+                    //supportActionBar?.title = boardDetail.title
+                    binding.boardTitle.text = boardDetail.title
                     binding.boardContent.text = boardDetail.content
                     binding.boardWriter.text = boardDetail.nickname
                     binding.boardAddress.text = boardDetail.address

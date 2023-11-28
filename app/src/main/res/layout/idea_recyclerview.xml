@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
+    android:padding="5dp"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="8dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -38,6 +39,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -60,7 +62,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:textSize="14dp"
+                    android:textSize="12dp"
                     android:text="10월 4일" />
 
             </LinearLayout>
@@ -71,8 +73,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_height="0.7dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white" />
 
 </LinearLayout>

@@ -27,7 +27,7 @@ class IdeaDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = ""
+        supportActionBar?.title = "아이디어 제안"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)  //툴바에 뒤로 가기 버튼 추가
 
         ideaId = intent.getIntExtra("ideaId", -1)
@@ -45,7 +45,8 @@ class IdeaDetailActivity : AppCompatActivity() {
             IdeaManager.getIdeaData(
                 ideaId,
                 onSuccess = { ideaDetail ->
-                    supportActionBar?.title = ideaDetail.title
+                    //supportActionBar?.title = ideaDetail.title
+                    binding.ideaTitle.text = ideaDetail.title
                     binding.ideaContent.text = ideaDetail.content
                     binding.ideaWriter.text = ideaDetail.user.nickname
                     binding.ideaAddress.text = ideaDetail.user.address

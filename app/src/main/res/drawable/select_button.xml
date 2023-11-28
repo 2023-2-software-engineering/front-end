@@ -4,10 +4,10 @@
     <!-- Default -->
     <item>
         <shape>
-            <solid android:color="#65B8B8" />
+            <solid android:color="#D2E9E9" />
             <stroke
                 android:width="2dp"
-                android:color="#65B8B8" />
+                android:color="#D2E9E9" />
             <corners
                 android:topLeftRadius="15dp"
                 android:topRightRadius="15dp"

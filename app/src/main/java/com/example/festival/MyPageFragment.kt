@@ -55,6 +55,11 @@ class MyPageFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.likeList.setOnClickListener {
+            val intent = Intent(activity, LikeListActivity::class.java)
+            startActivity(intent)
+        }
+
         return binding.root
     }
 
